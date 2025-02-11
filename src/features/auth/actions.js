@@ -6,8 +6,14 @@ import authHttpClient from "@/api/auth.requests"
 export const sendUserMobileNumber = createAsyncThunk(AuthTypes.SEND_USER_MOBILENUMBER,async (mobileNumber,thunkApi) => {
     try{
         const response = await authHttpClient.SendMobileNumber(mobileNumber);
-        console.log("in asycn Action : ",response)
-        return response;
+        /**
+         * response
+         * @param {object} data reveived api response data
+         * @param {string} message
+         * @param {number} status
+         * @param {boolean} success
+         */
+        return response.data;
     }catch(error){
         return thunkApi.rejectWithValue(error)
     }
