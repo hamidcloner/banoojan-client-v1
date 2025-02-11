@@ -18,7 +18,6 @@ export default function MobileNumberHolder(){
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(sendUserMobileNumber("09357324849"))
-
     },[])
     const selector = useSelector(state => state)
     const {mobileNumber,setMobileNumber,mobileNumberInputHandler,isDisable,onSubmitHandler} = useMobileNumberValidation()
