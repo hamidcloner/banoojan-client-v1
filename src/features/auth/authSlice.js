@@ -9,7 +9,7 @@ const initialState = {
     loading : true,
     syncUserTest : "",
     user : {
-        otp : "",
+        otp : "", // این نیازی نیست چون براش sms مبشه
         mobileNumber : ""
     }
 }
@@ -20,17 +20,9 @@ const authSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
+            state.user.otp = action.payload.OTPcode.code;
         })
     },
-    // reducers : {
-    //     setTestUserTest(state,action){
-    //         state.syncUserTest = action.payload.userName 
-    //     },
-    //     setTestOTPcode(state,action){
-    //         state.user.otp = action.payload.otp
-    //     }
-        
-    // }
 })
 
 

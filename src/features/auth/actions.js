@@ -4,6 +4,8 @@ import authHttpClient from "@/api/auth.requests"
 
 
 export const sendUserMobileNumber = createAsyncThunk(AuthTypes.SEND_USER_MOBILENUMBER,async (mobileNumber,thunkApi) => {
+    // usecase :
+    // useDispatch(sendUserMobileNumber("09121111111"))
     try{
         const response = await authHttpClient.SendMobileNumber(mobileNumber);
         /**

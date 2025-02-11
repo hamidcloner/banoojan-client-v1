@@ -2,7 +2,7 @@ import AppMUIConfigProvider from "@/MUIconfigProvider";
 import AppProvider from "@/appProvider";
 import "./globals.css";
 import dotenv from "dotenv";
-import ServerErrorHandler from "@/api/api.ErrorHandler"
+// import ServerErrorHandler from "@/api/api.ErrorHandler"
 
 
 export const metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body>
         {/* <AppMUIConfigProvider> */}
         <AppProvider>
-          <ServerErrorHandler />
+          {/* <ServerErrorHandler /> */}
           {children}
         </AppProvider>
         {/* </AppMUIConfigProvider> */}
