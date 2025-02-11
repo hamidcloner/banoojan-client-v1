@@ -20,7 +20,7 @@ const authSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
-            state.user.otp = action.payload.OTPcode.code;
+            state.user.mobileNumber = action.payload.mobileNumber
         })
     },
 })

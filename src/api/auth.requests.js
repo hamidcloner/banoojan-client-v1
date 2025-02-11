@@ -9,38 +9,15 @@ class AuthHttpClient extends HttpClientHandler{
     constructor(){
         super();
         this.#api = axios.create({
-            baseURL : `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth45`,
+            baseURL : `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth`,
             // timeout
             // headers
         });
     }
-    // #ApiHttpResReqErrorHandler(){
-    //     this.#api.interceptors.response.use()
-    // }
     SendMobileNumber(mobileNumber){
         this.#HttpErrorHandler(this.#api)
-        // this.#api.interceptors.request.use(function(config){
-        //     console.log("config is : ",config)
-        //     return config
-        // },function(error){
-        //     return Promise.reject(error)
-        // })
-        // this.#api.interceptors.response.use(function(response){
-        //     console.log("response is : ",response)
-        // },function(error){
-        //     console.log("error is : ",error);
-        //     return Promise.reject(error)
-        // })
         /**
          * response
-         * @param {object} data exactly api response
-         * @param {object} config axios
-         * @param {object} headers axios
-         * @param {object} request axios
-         * @param {number} status axios
-         * @param {string} statusText axios
-         * 
-         * response.data
          * @param {object} data reveived api response data
          * @param {string} message
          * @param {number} status
@@ -51,6 +28,15 @@ class AuthHttpClient extends HttpClientHandler{
                 mobileNumber
             })
             .then((response) => {
+                /**
+                 * response.data
+                 * @param {MongooseID} _id
+                 * @param {string} mobileNumber
+                 * @param {boolean} verifiedMobile
+                 * @param {Array<string>} favoritesSubjects
+                 * @param {object} OTPcode 
+                 */
+                console.log("response in method : ",response)
                 resolve(response.data)
             })
             .catch((error) => reject(error))

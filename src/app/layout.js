@@ -16,7 +16,6 @@ export default function RootLayout({ children }) {
       <body>
         {/* <AppMUIConfigProvider> */}
         <AppProvider>
-          {/* <ServerErrorHandler /> */}
           {children}
         </AppProvider>
         {/* </AppMUIConfigProvider> */}

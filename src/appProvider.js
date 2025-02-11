@@ -9,7 +9,6 @@ import rootStore from "@/features/store";
 export default function AppProvider({children}){
     return (
         <Provider store={rootStore}>
-            {/* <ServerErrorHandler /> */}
             <AppMUIConfigProvider>
                 {children}
             </AppMUIConfigProvider>

@@ -10,12 +10,13 @@ export const sendUserMobileNumber = createAsyncThunk(AuthTypes.SEND_USER_MOBILEN
         const response = await authHttpClient.SendMobileNumber(mobileNumber);
         /**
          * response
-         * @param {object} data reveived api response data
-         * @param {string} message
-         * @param {number} status
-         * @param {boolean} success
+         * @param {MongooseID} _id
+         * @param {string} mobileNumber
+         * @param {boolean} verifiedMobile
+         * @param {Array<string>} favoritesSubjects
+         * @param {object} OTPcode 
          */
-        return response.data;
+        return response;
     }catch(error){
         return thunkApi.rejectWithValue(error)
     }
