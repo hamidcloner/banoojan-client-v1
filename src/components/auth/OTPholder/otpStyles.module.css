@@ -1,0 +1,9 @@
+.otp-reverse-timer-container{
+    margin: 10px 0;
+    font-family: VazirRegular;
+}
+.otp-reverse-time{
+    color: var(--color-pink-light);
+    font-weight: bold;
+    font-size: 20px;
+}

@@ -1,21 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* :root{
+  --color-text-light : #333332;
+  --color-background-light : #FAF4E5;
+  --color-pink-light : #E5a1aa;
+  --color-green-light : #7AD0AC;
+  --color-blue-light : #8395CD;
+  --color-text-dark : #FAF4E5;
+  --color-background-dark : #8395CD
+} */
+:root{
+  --color-text-light : #FFFFFF; 
+  --color-background-light : #FAF4E5;
+  --color-pink-light : #C896CB;
+  --color-green-light : #7AD0AC;
+  --color-blue-light : #9C5DE9;
+  --color-text-dark : #3D2B8E;
+  /* --color-background-dark : #1E0D5D */
+  --colo-background-dark : #17181F;
+  --color-pink-stroke-500 : #ec4899
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+}
+*,::after,::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: Aviny;
+  background-color: var(--colo-background-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+/* ========== App Custom utility classes ========== */
+
+/* === colors ==== */
+.color-text-light{
+  color: var(--color-text-light);
+}
+.color-bg-light{
+  color: var(--color-background-light);
+}
+.color-pink-light{
+  color: var(--color-pink-light);
+}
+.color-green-light{
+  color: var(--color-green-light);
+}
+.color-blue-light{
+  color: var(--color-blue-light);
+}
+.color-text-dark{
+  color: var(--color-text-dark);
+}
+.color-bg-dark{
+  color: var(--colo-background-dark);
+}
+.color-pink-stroke-500{
+  color: var(--color-pink-stroke-500);
+}
+/* ===================== */
+.font-vazirRegular-persian-digit{
+  font-family: VazirRegular;
+}
+.font-aviny{
+  font-family: Aviny;
+}
+.dir-ltr{
+  direction: ltr;
+}
+.form-stack-divider-spacing{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.form-divider-spacing{
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.page-wrapper{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
 }

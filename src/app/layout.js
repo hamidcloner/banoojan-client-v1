@@ -1,15 +1,9 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import AppMUIConfigProvider from "@/MUIconfigProvider";
+import AppProvider from "@/appProvider";
 import "./globals.css";
+import dotenv from "dotenv";
+import ServerErrorHandler from "@/api/api.ErrorHandler"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Create Next App",
@@ -18,11 +12,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="fn" dir="rtl">
+      <body>
+        {/* <AppMUIConfigProvider> */}
+        <AppProvider>
+          <ServerErrorHandler />
+          {children}
+        </AppProvider>
+        {/* </AppMUIConfigProvider> */}
       </body>
     </html>
   );

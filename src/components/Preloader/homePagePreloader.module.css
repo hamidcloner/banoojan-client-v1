@@ -1,0 +1,25 @@
+.loader-wrapper{
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    /* position: fixed; */
+    /* top: 0; */
+    /* left: 0; */
+    /* background: #18181b; */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+.loader-widget-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.loader-widget-container img{
+    width: 100%;
+}
+
+
