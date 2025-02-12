@@ -1,6 +1,5 @@
 export const getTextMessagesFormAPI = (errObj) => {
     let errorArr = [];
-    console.log("entries : ",Object.entries(errObj))
     Object.entries(errObj).forEach(([errorField,errorMsg]) => {
         /**
          * errorMsg:

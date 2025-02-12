@@ -9,10 +9,11 @@ export const GloballyMessage = Object.freeze({
     NetworkError : {
         fa_message : "ارتباط با سرور قطع است،لطفا اتصالات اینترنت خود را چک کنید",
         en_message : "Network Error!please check your internet connection!"
+    },
+    InternalServerError : {
+        fa_message : "مشکلی در سرور به وجود آمده،لطفا دوباره تلاش کنید",
+        en_message : "Internal Server Error,please try later!"
+
     }
 })
 
-export const DynamicTextContentGen = (specialChar) => {
-    return ``
-
-}

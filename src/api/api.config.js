@@ -57,13 +57,17 @@ class HttpClientHandler{
              *      success : boolean
              *      errors : object
              */
+            // Handle the network Error (Network and internet)
             if(error.message === "Network Error" || error.code === "ERR_NETWORK"){
                 rejectedError = {errors : {NetWorkError : {message : GloballyMessage?.NetworkError}}}
                 return Promise.reject(rejectedError)
-            }else{
+            }else if(error.status >= 500){
+                rejectedError = {errors : {InternalServerError : {message : GloballyMessage?.InternalServerError}}}
+                return Promise.reject(rejectedError);
+            }
+            else{
                 rejectedError = error.response.data;
                 return Promise.reject(rejectedError)
-
             }
          
         })
