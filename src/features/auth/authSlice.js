@@ -27,7 +27,6 @@ const authSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
-            console.log("action in async reducer : ",action)
             state.user.mobileNumber = action.payload.mobileNumber;
             state.stepOfAuthenticate = "OTP"
         })

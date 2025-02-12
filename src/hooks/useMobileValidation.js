@@ -1,6 +1,8 @@
 import { useState,useEffect } from "react";
 import {AuthMessages} from "@/common/appUImessages";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+// ==== import the custom-hook
+import useSpecificSelector from "@/hooks/useSpecificSelector";
 // ==== import the actions
 import {sendUserMobileNumber} from "@/features/auth/actions";
 
@@ -11,6 +13,7 @@ import {sendUserMobileNumber} from "@/features/auth/actions";
 export default function useMobileNumberValidation(){
 
     const Ir_mobileNumber_pattern = /^09\d{9}$/;
+    const {error : serverError} = useSpecificSelector("auth")
     const dispatch = useDispatch();
     const [mobileNumber,setMobileNumber] = useState("");
     const [isDisable,setIsDisable] = useState(true);
@@ -28,6 +31,20 @@ export default function useMobileNumberValidation(){
             setError(null)
         }
     },[mobileNumber])
+
+    function showServerErrorAsText(){
+        return (
+            <>
+                {!serverError ? (
+                    <></>
+                ) : (
+                    serverError.map((errorMsg) => (
+                        <p>{errorMsg}</p>
+                    ))
+                )}
+            </>
+        )
+    }
 
 
     
@@ -49,6 +66,7 @@ export default function useMobileNumberValidation(){
         mobileNumberInputHandler,
         isDisable,
         error,
-        onSubmitHandler
+        onSubmitHandler,
+        serverError
     }
 }
