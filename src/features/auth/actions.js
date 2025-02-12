@@ -18,6 +18,13 @@ export const sendUserMobileNumber = createAsyncThunk(AuthTypes.SEND_USER_MOBILEN
          */
         return response;
     }catch(error){
+        /**
+         * error
+         * @param {string} message
+         * @param {number} status
+         * @param {boolean} success
+         * @param {object} errors => {}
+         */
         return thunkApi.rejectWithValue(error)
     }
 })

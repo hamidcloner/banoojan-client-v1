@@ -36,10 +36,19 @@ class AuthHttpClient extends HttpClientHandler{
                  * @param {Array<string>} favoritesSubjects
                  * @param {object} OTPcode 
                  */
-                console.log("response in method : ",response)
                 resolve(response.data)
             })
-            .catch((error) => reject(error))
+            .catch((error) => {
+                /**
+                 * error
+                 * @param {string} message
+                 * @param {number} status
+                 * @param {boolean} success
+                 * @param {object} errors
+                 */
+                console.log("error in method : ",error);
+                reject(error)
+            })
         })
     }   
 }

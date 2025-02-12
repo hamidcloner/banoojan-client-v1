@@ -1,8 +1,6 @@
 import axios from "axios";
+import {GloballyMessage} from "@/common/appUImessages"
 
-const api = axios.create({
-    baseURL : process.env.NEXT_PUBLIC_API_BASE_URL,
-})
 
 class HttpClientHandler{
     constructor(){
@@ -42,6 +40,8 @@ class HttpClientHandler{
          */
             return response.data;
         },function(error){
+            let rejectedError;
+            console.log("error while Network Error : ",error)
             /**
              * @param {string} code axios
              * @param {object} config axios
@@ -57,9 +57,18 @@ class HttpClientHandler{
              *      success : boolean
              *      errors : object
              */
-            return Promise.reject(error)
+            if(error.message === "Network Error" || error.code === "ERR_NETWORK"){
+                rejectedError = {errors : {NetWorkError : {message : GloballyMessage?.NetworkError}}}
+                return Promise.reject(rejectedError)
+            }else{
+                rejectedError = error.response.data;
+                return Promise.reject(rejectedError)
+
+            }
+         
         })
     }
+
 }
 
 

@@ -2,14 +2,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {AuthTypes} from "@/features/types";
 // === import the asycn actions ====
-import {sendUserMobileNumber} from "@/features/auth/actions"
+import {sendUserMobileNumber} from "@/features/auth/actions";
+// ==== import the utility function
+import {getTextMessagesFormAPI} from "@/utils";
 
 const initialState = {
-    error : null,
+    /**
+     * @param {Array<string> | null} error
+     * @param {boolean} loading
+     * @param {object} user
+     */
+    error : null, 
     loading : true,
     syncUserTest : "",
     user : {
-        otp : "", // این نیازی نیست چون براش sms مبشه
         mobileNumber : ""
     }
 }
@@ -21,6 +27,10 @@ const authSlice = createSlice({
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
             state.user.mobileNumber = action.payload.mobileNumber
+        })
+        builder.addCase(sendUserMobileNumber.rejected,(state,action) => {
+            state.loading = false;
+            state.error = getTextMessagesFormAPI(action.payload.errors)
         })
     },
 })
