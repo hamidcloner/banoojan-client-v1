@@ -39,7 +39,9 @@ export default function useMobileNumberValidation(){
                     <></>
                 ) : (
                     serverError.map((errorMsg) => (
-                        <p>{errorMsg}</p>
+                        <p key={serverError.indexOf(errorMsg)} className="color-pink-stroke-500 text-xl md:text-2xl text-center">
+                            {errorMsg}
+                        </p>
                     ))
                 )}
             </>
@@ -67,6 +69,6 @@ export default function useMobileNumberValidation(){
         isDisable,
         error,
         onSubmitHandler,
-        serverError
+        showServerErrorAsText
     }
 }

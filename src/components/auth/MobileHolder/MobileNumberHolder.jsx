@@ -13,7 +13,7 @@ import useSpecificSelector from "@/hooks/useSpecificSelector";
 
 export default function MobileNumberHolder(){
     const authState = useSpecificSelector("auth");
-    const {mobileNumber,setMobileNumber,mobileNumberInputHandler,isDisable,onSubmitHandler,error} = useMobileNumberValidation()
+    const {mobileNumberInputHandler,isDisable,onSubmitHandler,showServerErrorAsText} = useMobileNumberValidation()
     return (
         <Fragment>
             <form onSubmit={onSubmitHandler}> 
@@ -22,6 +22,9 @@ export default function MobileNumberHolder(){
                     <TextInput 
                         handler={mobileNumberInputHandler}
                     />
+                </div>
+                <div className="form-divider-spacing">
+                    {showServerErrorAsText()}
                 </div>
                 <div className="form-divider-spacing text-center">
                     <ButtonCTA

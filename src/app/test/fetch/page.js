@@ -22,7 +22,7 @@ export default function FetchPage(){
                     <><p>No Error Found</p></>
                 ) : (
                     error.map(errorMsg => (
-                        <p key={indexof(errorMsg)} className="color-pink-stroke-500">{errorMsg}</p>
+                        <p key={indexof(errorMsg)} className="color-pink-stroke-500 text-xl md:text-2xl">{errorMsg}</p>
                     ))
                 )}
             </div>
