@@ -5,34 +5,27 @@ import TextInput from "@/components/common/FormWidgets/TextInput";
 import ButtonCTA from "@/components/common/FormWidgets/ButtonCTA";
 // import the custom-hooks
 import useMobileNumberValidation from "@/hooks/useMobileValidation";
-import { useSelector,useDispatch } from "react-redux";
-// ======== actions ======
-import {getUserInfo} from "@/features/User/actions";
-import {sendUserMobileNumber} from "@/features/auth/actions/"
+import useSpecificSelector from "@/hooks/useSpecificSelector";
 
 
 
 
 
 export default function MobileNumberHolder(){
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(sendUserMobileNumber("09357324849"))
-    },[])
-    const selector = useSelector(state => state)
-    const {mobileNumber,setMobileNumber,mobileNumberInputHandler,isDisable,onSubmitHandler} = useMobileNumberValidation()
+    const authState = useSpecificSelector("auth");
+    const {mobileNumber,setMobileNumber,mobileNumberInputHandler,isDisable,onSubmitHandler,error} = useMobileNumberValidation()
     return (
         <Fragment>
-            {console.log("selector in mobileNumberHolder : ",selector)}
             <form onSubmit={onSubmitHandler}> 
                 <div className="form-divider-spacing">
+                    {console.log("authState : ",authState)}
                     <TextInput 
                         handler={mobileNumberInputHandler}
                     />
                 </div>
                 <div className="form-divider-spacing text-center">
                     <ButtonCTA
-                        btnTextDisable="اول شماره رو وارد کن بعدبزن رو من!"
+                        btnTextDisable="اول شماره رو به درستی وارد کن،بعد بزن رو من!"
                         btnTextEnable="ارسال کد یکبار مصرف"
                         btnDisable={isDisable}
                         btnType="submit" 

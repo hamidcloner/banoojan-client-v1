@@ -11,10 +11,11 @@ const initialState = {
      * @param {Array<string> | null} error
      * @param {boolean} loading
      * @param {object} user
+     * @param {enum<string>} stepOfAuthenticate "mobile" | "OTP" | "completed"
      */
     error : null, 
     loading : true,
-    syncUserTest : "",
+    stepOfAuthenticate : "mobile",
     user : {
         mobileNumber : ""
     }
@@ -26,7 +27,9 @@ const authSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
-            state.user.mobileNumber = action.payload.mobileNumber
+            console.log("action in async reducer : ",action)
+            state.user.mobileNumber = action.payload.mobileNumber;
+            state.stepOfAuthenticate = "OTP"
         })
         builder.addCase(sendUserMobileNumber.rejected,(state,action) => {
             state.loading = false;

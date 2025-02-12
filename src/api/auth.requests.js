@@ -36,6 +36,7 @@ class AuthHttpClient extends HttpClientHandler{
                  * @param {Array<string>} favoritesSubjects
                  * @param {object} OTPcode 
                  */
+                console.log("returned response form last interface : ",response.data)
                 resolve(response.data)
             })
             .catch((error) => {
