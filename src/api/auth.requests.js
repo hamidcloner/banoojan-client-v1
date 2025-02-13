@@ -24,7 +24,7 @@ class AuthHttpClient extends HttpClientHandler{
          * @param {boolean} success
         */
         return new Promise((resolve,reject) => {
-            this.#api.post("/login/send-otp/error",{
+            this.#api.post("/login/send-otp",{
                 mobileNumber
             })
             .then((response) => {

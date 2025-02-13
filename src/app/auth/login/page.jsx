@@ -5,6 +5,7 @@ import useSpecificSelector from "@/hooks/useSpecificSelector";
 // import the local-components
 import MobileLogin from "@/components/auth/MobileLogin";
 import OTPlogin from "@/components/auth/OTPlogin";
+import {HashLoading} from "@/components/loadings"
 
 
 // show two components Here Based On check state
@@ -12,16 +13,21 @@ import OTPlogin from "@/components/auth/OTPlogin";
 // 2- input-OTPcode
 
 export default function LoginPage(){
-    const {stepOfAuthenticate} = useSpecificSelector("auth");
+    const {stepOfAuthenticate,loading} = useSpecificSelector("auth");
     const LoginRenderedBasedOnAuthStep = () => {
         /**
          * @param {Enumerator} stepOfAuthenticate => ["mobile","OTP","completed"]
          */
-        if(stepOfAuthenticate === "mobile"){
+        if(loading){
+            return (
+                <HashLoading color="#3D2B8E" load={loading}/>
+            )
+        }
+        if(stepOfAuthenticate === "mobile" && !loading){
             return (
                 <MobileLogin />
             )
-        }else if(stepOfAuthenticate === "OTP"){
+        }else if(stepOfAuthenticate === "OTP" && !loading){
             return (
                 <OTPlogin />
             )
@@ -30,6 +36,7 @@ export default function LoginPage(){
     }
     return (
         <Fragment>
+            {console.log()}
             <div className="page-wrapper">
                 {LoginRenderedBasedOnAuthStep()}
             </div>      

@@ -14,7 +14,7 @@ const initialState = {
      * @param {enum<string>} stepOfAuthenticate "mobile" | "OTP" | "completed"
      */
     error : null, 
-    loading : true,
+    loading : false,
     stepOfAuthenticate : "mobile",
     user : {
         mobileNumber : ""
@@ -29,6 +29,9 @@ const authSlice = createSlice({
             state.loading = false;
             state.user.mobileNumber = action.payload.mobileNumber;
             state.stepOfAuthenticate = "OTP"
+        })
+        builder.addCase(sendUserMobileNumber.pending,(state,action) => {
+            state.loading = true;
         })
         builder.addCase(sendUserMobileNumber.rejected,(state,action) => {
             state.loading = false;
