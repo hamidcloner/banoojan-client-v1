@@ -13,7 +13,7 @@ import useOTPvalidate from "@/hooks/useOTPvalidate";
 
 export default function OTPinputHolder(){
 
-    const {otp,setOTP,otpExpired,setOtpExpired,onSubmitHandler,inputedOTPHandler,error,isDisable,otpStatus} = useOTPvalidate();
+    const {otp,setOTP,otpExpired,setOtpExpired,onSubmitHandler,inputedOTPHandler,error,isDisable,otpStatus,showServerErrorAsText} = useOTPvalidate();
     // otpStatus =ENUM=>  {"send" : defaultStatus,"re-send" : otpExpired is "True"}
 
     const submitButtonGenerate = function(){
@@ -29,9 +29,9 @@ export default function OTPinputHolder(){
         }if(otpStatus === "re-send"){
             return (
                 <ButtonCTA 
-                    btnTextDisable="یخورده عجله کن،بزن دوباره کد رو ارسال کنم برات"
+                    btnTextEnable="یخورده عجله کن،بزن دوباره کد رو ارسال کنم برات"
                     btnType="submit"
-                    btnDisable={true}
+                    btnDisable={false}
                 />
             )
         }
@@ -73,14 +73,13 @@ export default function OTPinputHolder(){
                         />
                     </Box>
                     <Box>
-                        {console.log("expired : ",otpExpired)}
+                        {showServerErrorAsText()}
+                    </Box>
+                    <Box>
                         {submitButtonGenerate()}
                     </Box>
-
                 </Stack>
             </form>
-  
-
         </Fragment>
 
 

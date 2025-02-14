@@ -6,14 +6,18 @@
 */
 import { useState,useEffect } from "react";
 import {AuthMessages} from "@/common/appUImessages";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import useSpecificSelector from "./useSpecificSelector";
 // ==== import actions ========
-import {setTestOTPcode} from "@/features/auth/authSlice";
+import { SendUserOTPCode } from "@/features/auth/actions";
+
 
 export default function useOTPvalidate(){
     // =============
-    const selector = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
+    const router = useRouter()
+    const {stepOfAuthenticate,error : serverError,user : {mobileNumber}} = useSpecificSelector("auth")
     // selector = {otp : "",mobileNumber : ""}
     // =============
     const [otpStatus,setOtpStatus] = useState("send") // => =ENUM=> ["send","re-send"] => {send : defaultStatus,re-send : otpExpired is "True"}
@@ -38,7 +42,6 @@ export default function useOTPvalidate(){
     // =======
 
     useEffect(() => {
-        console.log("appState : ",selector)
         if(otpExpired){
             setError((prevState) => ({
                 ...prevState,
@@ -57,15 +60,35 @@ export default function useOTPvalidate(){
 
     },[otp,otpExpired,isDisable])
 
-    const onSubmitHandler = (e) => {
-        e.preventDefault();
-        // dispatch(setTestOTPcode({otp}))
-
-        if(Object.keys(error) === 0 && !isDisable) return alert(`${otp} was sent successFully!`)
-    } 
     const inputedOTPHandler = (enteredOTP) => {
         setOTP(enteredOTP)
     }
+    function showServerErrorAsText(){
+        return (
+            <>
+                {!serverError ? (
+                    <></>
+                ) : (
+                    serverError.map((errorMsg) => (
+                        <p key={serverError.indexOf(errorMsg)} className="color-pink-stroke-500 text-xl md:text-2xl text-center">
+                            {console.log("I am Rendered ......")}
+                            {errorMsg}
+                        </p>
+                    ))
+                )}
+            </>
+        )
+    }
+
+
+    const onSubmitHandler = (e) => {
+        console.log("e shod ke!")
+        e.preventDefault();
+        if(Object.keys(error).length === 0 && !isDisable){
+            dispatch(SendUserOTPCode({mobileNumber,otp}))
+        }
+    } 
+
 
 
     return {
@@ -76,6 +99,7 @@ export default function useOTPvalidate(){
         onSubmitHandler,
         inputedOTPHandler,
         otpStatus,
+        showServerErrorAsText,
         // each one of follow => show that form can be submit!
         error,
         isDisable

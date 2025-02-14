@@ -1,5 +1,6 @@
 "use client"
-import { Fragment } from "react";
+import { Fragment,useEffect } from "react";
+import { useRouter } from "next/navigation";
 // import the custom-hooks
 import useSpecificSelector from "@/hooks/useSpecificSelector";
 // import the local-components
@@ -13,6 +14,13 @@ import {HashLoading} from "@/components/loadings"
 // 2- input-OTPcode
 
 export default function LoginPage(){
+    const router = useRouter();
+    useEffect(() => {
+        if(stepOfAuthenticate === "completed"){
+            router.push("/user/select-skils")
+        }
+    })
+    
     const {stepOfAuthenticate,loading} = useSpecificSelector("auth");
     const LoginRenderedBasedOnAuthStep = () => {
         /**
@@ -36,7 +44,6 @@ export default function LoginPage(){
     }
     return (
         <Fragment>
-            {console.log()}
             <div className="page-wrapper">
                 {LoginRenderedBasedOnAuthStep()}
             </div>      

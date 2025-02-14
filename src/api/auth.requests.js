@@ -52,6 +52,22 @@ class AuthHttpClient extends HttpClientHandler{
             })
         })
     }   
+    SendOTPcodeToCheckIt(mobileNumber,otp){
+        // this.#HttpErrorHandler(this.#api);
+        return new Promise((resolve,reject) => {
+            this.#api.post("/login/check-otp",{
+                mobileNumber,
+                otp
+            }).then((response) => {
+                console.log("returned response from last interface (checkOTP) : ",response)
+                resolve(response)
+            })
+            .catch((error) => {
+                console.log("error in last interface (checkOTP) : ",error)
+                reject(error)
+            })
+        })
+    }
 }
 
 

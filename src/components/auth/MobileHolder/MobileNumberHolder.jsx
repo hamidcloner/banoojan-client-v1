@@ -18,7 +18,6 @@ export default function MobileNumberHolder(){
         <Fragment>
             <form onSubmit={onSubmitHandler}> 
                 <div className="form-divider-spacing">
-                    {console.log("authState : ",authState)}
                     <TextInput 
                         handler={mobileNumberInputHandler}
                     />

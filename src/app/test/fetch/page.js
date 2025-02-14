@@ -1,6 +1,6 @@
 "use client"
 import { useDispatch } from "react-redux";
-import {sendUserMobileNumber} from "@/features/auth/actions";
+import {sendUserMobileNumber,SendUserOTPCode} from "@/features/auth/actions";
 import { useEffect } from "react";
 import useSpecificSelector from "@/hooks/useSpecificSelector";
 import { indexof } from "stylis";
@@ -12,7 +12,8 @@ export default function FetchPage(){
     const {error} = useSpecificSelector("auth");
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(sendUserMobileNumber("0935732484"))
+        // dispatch(sendUserMobileNumber("0935732484"))
+        dispatch(SendUserOTPCode({mobileNumber : "09357324849",otp : "7387"}))
     },[])
 
     return (

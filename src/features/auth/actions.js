@@ -3,7 +3,7 @@ import {AuthTypes} from "@/features/types";
 import authHttpClient from "@/api/auth.requests"
 
 
-export const sendUserMobileNumber = createAsyncThunk(AuthTypes.SEND_USER_MOBILENUMBER,async (mobileNumber,thunkApi) => {
+export const sendUserMobileNumber = createAsyncThunk(AuthTypes?.SEND_USER_MOBILENUMBER,async (mobileNumber,thunkApi) => {
     // usecase :
     // useDispatch(sendUserMobileNumber("09121111111"))
     try{
@@ -25,6 +25,18 @@ export const sendUserMobileNumber = createAsyncThunk(AuthTypes.SEND_USER_MOBILEN
          * @param {boolean} success
          * @param {object} errors => {}
          */
+        return thunkApi.rejectWithValue(error)
+    }
+})
+
+// usecase:
+// useDispatch(SendUserOTPCode("09121111111",2569))
+export const SendUserOTPCode = createAsyncThunk(AuthTypes?.SEND_USER_OTP,async ({mobileNumber,otp},thunkApi) => {
+    console.log("actions is calling =======================")
+    try{
+        const response = await authHttpClient.SendOTPcodeToCheckIt(mobileNumber,otp);
+        return response
+    }catch(error){
         return thunkApi.rejectWithValue(error)
     }
 })
