@@ -32,7 +32,6 @@ export const sendUserMobileNumber = createAsyncThunk(AuthTypes?.SEND_USER_MOBILE
 // usecase:
 // useDispatch(SendUserOTPCode("09121111111",2569))
 export const SendUserOTPCode = createAsyncThunk(AuthTypes?.SEND_USER_OTP,async ({mobileNumber,otp},thunkApi) => {
-    console.log("actions is calling =======================")
     try{
         const response = await authHttpClient.SendOTPcodeToCheckIt(mobileNumber,otp);
         return response

@@ -17,7 +17,8 @@ const initialState = {
     loading : false, // true just actions are in "pending" state
     stepOfAuthenticate : "mobile",
     user : {
-        mobileNumber : ""
+        mobileNumber : "",
+        skils : null
     }
 }
 
@@ -28,7 +29,6 @@ const authSlice = createSlice({
         // ====== SendMobileNumber to get OTP-code =======
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
-            localStorage.setItem("token","testToken")
             state.user.mobileNumber = action.payload.mobileNumber;
             state.stepOfAuthenticate = "OTP"
         })
@@ -43,6 +43,7 @@ const authSlice = createSlice({
         builder.addCase(SendUserOTPCode.fulfilled,(state,action) => {
             console.log("action in Reducer (fulfilled) : ",action);
             state.stepOfAuthenticate = "completed";
+            localStorage.setItem("banooJanAuthToken",action.payload.data.access_token)
             state.loading = false;
             // ==== add to state.user
         })

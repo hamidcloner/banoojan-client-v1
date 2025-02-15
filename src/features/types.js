@@ -6,5 +6,5 @@ export const AuthTypes = Object.freeze({
 
 export const UserTypes = Object.freeze({
     name : "user",
-    GET_USER_INFO : "user/getUerInfo"
+    SEND_USER_SKILS : "user/getUerInfo"
 })

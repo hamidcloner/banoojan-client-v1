@@ -1,23 +1,51 @@
 import axios from "axios";
+import HttpClientHandler from "@api/api.config";
 
 
-console.log("BASE URL : ",process.env.API_BASE_URL)
-class UserHttpClient{
+class UserHttpClient extends HttpClientHandler{
     #api;
-    superURL;
+    #HttpErrorHandler = super.HttpClientHandler;
     constructor(){
+        super();
         this.#api = axios.create({
-            baseURL : `${process.env.NEXT_PUBLIC_API_BASE_URL}/user`
+            baseURL : `${process.env.NEXT_PUBLIC_API_BASE_URL}/user`,
+            // timeout
+            headers : {
+                Authorization : `Bearer ${localStorage.getItem("banooJanAuthToken")}`
+            }
         })
     }
-    // test
-    Get(){
+    AddUserSkil(skils){
+        this.#HttpErrorHandler(this.#api);
+        /**
+         * response
+         * @param {object} data reveived api response data
+         * @param {string} message
+         * @param {number} status
+         * @param {boolean} success
+        */
         return new Promise((resolve,reject) => {
-            this.#api.get("/test-client5")
-                .then((response) => resolve(response.data))
-                .catch((error) => reject(error))
+            this.#api.post("/add-new-skils",{
+                skils
+            })
+            .then((response) => {
+                console.log("user response in http method : ",response)
+                resolve(response.data)
+            })
+            .catch((error) => {
+                /**
+                 * error
+                 * @param {string} message
+                 * @param {number} status
+                 * @param {boolean} success
+                 * @param {object} errors
+                 */
+                reject(error)
+
+            })
         })
     }
+
 }
 
 

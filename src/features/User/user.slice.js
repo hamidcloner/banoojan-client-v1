@@ -1,35 +1,40 @@
 import { UserTypes } from "@/features/types";
 import { createSlice } from "@reduxjs/toolkit";
-// ==== test (async actions) ====
-import {getUserInfo} from "@/features/User/actions";
-
+// === import actions 
+import {sendUserSelectedSkils} from "@/features/User/actions";
 
 const initialState = {
-    list : [],
-    error : "",
+    /**
+     * @param {object} userInfo
+     * @param {boolean} loading
+     * @param {Array<string>} error 
+     */
+    userInfo : null,
+    error : null,
     loading : true
 }
-
-
 
 const userSlice = createSlice({
     name : UserTypes.name,
     initialState,
     extraReducers : (builder) => {
-        builder.addCase(getUserInfo.fulfilled,(state,action) => {
-            state.list = action.payload.data;
+        builder.addCase(sendUserSelectedSkils.fulfilled,(state,action) => {
             state.loading = false;
-        });
-        builder.addCase(getUserInfo.rejected,(state,action) => {
-            state.loading = false;
-            state.error = action.payload;
-            // alert("Error : ",action.payload)
-            
-            
         })
-
+        builder.addCase(sendUserSelectedSkils.pending,(state,action) => {
+            state.loading = true;
+        })
+        builder.addCase(sendUserSelectedSkils.rejected,(state,action) => {
+            state.loading = false;
+        })
     }
+    
+
 })
+
+
+
+
 
 
 
