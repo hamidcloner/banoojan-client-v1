@@ -100,7 +100,7 @@ export default function Home() {
     const createLoadingLogic = () => {
       setTimeout(() => {
         setIsLoading(false);
-      },3000)
+      },2500)
     }
     createLoadingLogic();
   })

@@ -4,11 +4,16 @@ import {UserTypes} from "@/features/types";
 
 
 
-export const sendUserSelectedSkils = createAsyncThunk(UserTypes.SEND_USER_SKILS,async ({skils},thunkApi) => {
+export const sendUserSelectedSkils = createAsyncThunk(UserTypes.SEND_USER_SKILS,async ({bodyReqContent : skil,authToken : token},thunkApi) => {
     // usecase : 
     // useDispatch(sendUserMobileNumber("mentee"))
+    /**
+     * @param {object} bodyReqContent
+     */
     try{
-        const response = await userHttpClient.AddUserSkil(skils);
+        console.log("actions => skils : ",skil);
+        console.log("action => token : ",token)
+        const response = await userHttpClient.AddUserSkil(skil,token);
         return response;
     }catch(error){
         /**

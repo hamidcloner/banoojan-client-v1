@@ -1,21 +1,30 @@
+'use client'
 import axios from "axios";
-import HttpClientHandler from "@api/api.config";
+import HttpClientHandler from "@/api/api.config";
+
+let clientToken;
+if(typeof window !== 'undefined'){
+    clientToken = window.localStorage.getItem("banooJanAuthToken")
+}
 
 
 class UserHttpClient extends HttpClientHandler{
     #api;
-    #HttpErrorHandler = super.HttpClientHandler;
+    #HttpErrorHandler = super.HttpReqResHandler;
     constructor(){
         super();
         this.#api = axios.create({
             baseURL : `${process.env.NEXT_PUBLIC_API_BASE_URL}/user`,
             // timeout
-            headers : {
-                Authorization : `Bearer ${localStorage.getItem("banooJanAuthToken")}`
-            }
+            // headers : {
+            //     Authorization : `Bearer ${clientToken}`
+            // }
         })
     }
-    AddUserSkil(skils){
+    AddUserSkil(skil,clinetAuthToken){
+        console.log("HTTP METHOD : skils : ",skil);
+        console.log("HTTP MEHTOD : ",clinetAuthToken)
+        // skils argument must be object finally Destructuring it
         this.#HttpErrorHandler(this.#api);
         /**
          * response
@@ -25,8 +34,14 @@ class UserHttpClient extends HttpClientHandler{
          * @param {boolean} success
         */
         return new Promise((resolve,reject) => {
-            this.#api.post("/add-new-skils",{
-                skils
+            // this.#api.post("/add-new-skils",{
+            //     skils
+                
+            // })
+            this.#api.post("/add-new-skils",{...skil},{
+                headers : {
+                    Authorization : `Bearer ${clinetAuthToken}`
+                }
             })
             .then((response) => {
                 console.log("user response in http method : ",response)

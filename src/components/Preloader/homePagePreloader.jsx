@@ -28,7 +28,7 @@ export default function HomePagePreLoader(){
                     <div className="">
                         <TextFadeWithHeader
                             headerText="بانوجان"
-                            contentText="افسانه نخواهی ماند...."
+                            contentText="همه چی تو مشتته...."
                             headerTextColorCls="color-text-dark"
                             contentTextColorCls="color-bg-light"
                         />
