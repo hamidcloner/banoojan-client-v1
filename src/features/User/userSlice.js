@@ -10,7 +10,9 @@ const initialState = {
      * @param {boolean} loading
      * @param {Array<string>} error 
      */
-    userInfo : null,
+    userInfo : {
+        skil : null
+    },
     error : null,
     loading : true
 }
@@ -21,12 +23,14 @@ const userSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(sendUserSelectedSkils.fulfilled,(state,action) => {
             state.loading = false;
+            state.userInfo.skil = action.payload.skil;
         })
         builder.addCase(sendUserSelectedSkils.pending,(state,action) => {
             state.loading = true;
         })
         builder.addCase(sendUserSelectedSkils.rejected,(state,action) => {
             state.loading = false;
+            state.error = getTextMessagesFormAPI(action.payload.errors)
         })
     }
     

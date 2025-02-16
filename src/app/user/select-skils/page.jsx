@@ -1,6 +1,5 @@
 "use client"
 import { Fragment,useState,useEffect } from "react";
-import { useDispatch } from "react-redux";
 import {Stack} from "@mui/material"
 import { useRouter } from "next/navigation";
 import { TypingEffect } from "@/components/common/LoadingText";
@@ -14,9 +13,9 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 // import the actions
 import {sendUserSelectedSkils} from "@/features/User/actions"
-
-
-import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods"
+// import the custom-hooks
+import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
+import useSpecificSelector from "@/hooks/useSpecificSelector"
 
 
 
@@ -33,13 +32,16 @@ const userSkilsList = [
 export default function UserSelectSkilPage(){
     const [skil,setSkil] = useState("");
     const {HttpPostMethodAddHeaders} = useHttpPostMethodByHeaders(sendUserSelectedSkils);
+    const {error} = useSpecificSelector("user")
     const router = useRouter();
     useEffect(() => {
         if(skil){
             HttpPostMethodAddHeaders({skil})
-            // router.push("/user/profile")  
+            if(!error){
+                router.push("/user/profile")
+            }    
         }
-    })
+    },[skil])
     
 
     return (

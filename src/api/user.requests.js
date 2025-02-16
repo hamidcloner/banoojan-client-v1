@@ -22,8 +22,6 @@ class UserHttpClient extends HttpClientHandler{
         })
     }
     AddUserSkil(skil,clinetAuthToken){
-        console.log("HTTP METHOD : skils : ",skil);
-        console.log("HTTP MEHTOD : ",clinetAuthToken)
         // skils argument must be object finally Destructuring it
         this.#HttpErrorHandler(this.#api);
         /**
@@ -44,8 +42,15 @@ class UserHttpClient extends HttpClientHandler{
                 }
             })
             .then((response) => {
+                /**
+                 * response:
+                 * @param {number} status
+                 * @param {boolean} success
+                 * @param {object} message
+                 * @param {object} data => {modifiedUser : {skil,mobileNumber,....}}
+                 */
                 console.log("user response in http method : ",response)
-                resolve(response.data)
+                resolve(response.data.modifiedUser)
             })
             .catch((error) => {
                 /**
