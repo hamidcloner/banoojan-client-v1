@@ -1,17 +1,21 @@
 'use client'
 import { useState } from "react";
-import Modal from "@/components/common/Modals";
+import TransitionsModal from "@/components/common/Modals";
+
 
 
 
 export default function ModalPage(){
-    const [isOpen,setIsOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return (
-        <>
-            <button type="button" onClick={() => setIsOpen(true)}>
+        <div className="page-wrapper">
+            <button type="button" onClick={handleOpen}>
                 Open the animate modal
             </button>
-            <Modal isOpen={isOpen} setIsOpen={setIsOpen}/>
-        </>
+            <TransitionsModal handleOpen={handleOpen} open={open} handleClose={handleClose} />
+        </div>
     )
 }

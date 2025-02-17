@@ -57,7 +57,9 @@ const mainTheme = createTheme({
       colorGreenLight : "#7AD0AC",
       colorBlueLight : "#9C5DE9",
       colorTextDark : "#3D2B8E",
-      colorBgDark : "#1E0D5D"
+      // colorBgDark : "#1E0D5D"
+      colorBgDark : "#17181F",
+      colorPinkStroke : "#ec4899"
     }
   },
   
