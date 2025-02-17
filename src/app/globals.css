@@ -90,6 +90,7 @@ body{
 
 .textarea-modal__user-comment{
   border-radius: 5px;
+  font-size: 22px;
   padding: 5px 8px;
   border: 1px solid var(--color-background-light);
   color: var(--color-background-light);

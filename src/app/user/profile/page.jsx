@@ -11,7 +11,7 @@ import useModalToggled from "@/hooks/useModalToggled";
 export default function UserProfile(){
 
     const {userInfo : {skil}} = useSpecificSelector("user");
-    const {open,handleOpen,handleClose} = useModalToggled();
+    const {open,handleOpen,handleClose,modalFormData,formDataHandler} = useModalToggled({feedbackComment : ""});
 
     return (
         <>
@@ -29,10 +29,13 @@ export default function UserProfile(){
                         handleOpen={handleOpen}
                     />
                 </div>
+                {console.log("formData : ",modalFormData)}
                 {/* == send comment modal == */}
                 <TransitionsModal 
                     open={open} 
                     handleClose={handleClose}
+                    modalFormData={modalFormData}
+                    formDataHandler={formDataHandler}
                 />
             </div>
         </>
