@@ -1,21 +1,37 @@
 'use client'
+
+
+import {connect} from "react-redux";
+
+
 import useSpecificSelector from "@/hooks/useSpecificSelector";
+import { useSelector,shallowEqual } from "react-redux";
 // import the local component
 import {CallUsBadge} from "@/components/common/Badges";
 import {TransitionsModal} from "@/components/common/Modals";
 // import the custom hook
 import useModalToggled from "@/hooks/useModalToggled";
+import { useEffect } from "react";
 
 
 
-export default function UserProfile(){
+const UserProfile = () => {
 
-    const {userInfo : {skil}} = useSpecificSelector("user");
+    // useEffect(() => {
+    //     const {userInfo : {skil}} = useSpecificSelector("user");
+
+    // },[])
+    // const {userInfo : {skil}} = useSpecificSelector("user");
+    const skil = useSelector(state => state.user.userInfo.skil)
+    // const user = useSelector(state => state.user,{shallowEqual})
+    // const customEqual = (old,newV) => old == newV;
+
     const {open,handleOpen,handleClose,modalFormData,formDataHandler} = useModalToggled({feedbackComment : ""});
 
     return (
         <>
             <div className="page-wrapper relative">
+                {console.log("skiiiiiiii : ",skil)}
                 <div className="color-text-light text-xl">
                     <h3 className="text-center mb-3">دوست خوبم!</h3>
                     <p className="text-center">امیدوارم به زودی شما رو به عنوان
@@ -29,7 +45,6 @@ export default function UserProfile(){
                         handleOpen={handleOpen}
                     />
                 </div>
-                {console.log("formData : ",modalFormData)}
                 {/* == send comment modal == */}
                 <TransitionsModal 
                     open={open} 
@@ -42,3 +57,12 @@ export default function UserProfile(){
     )
 }
 
+
+// const mapStateToProps = (state) => ({
+//     user : state.user,
+//     auth : state.auth
+// })
+
+
+export default UserProfile;
+// export default connect(mapStateToProps)(UserProfile)

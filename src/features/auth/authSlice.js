@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {AuthTypes} from "@/features/types";
 // === import the asycn actions ====
-import {sendUserMobileNumber,SendUserOTPCode} from "@/features/auth/actions";
+import {sendUserMobileNumber,SendUserOTPCode,SendStoragedTokenToAuth} from "@/features/auth/actions";
 // ==== import the utility function
 import {getTextMessagesFormAPI} from "@/utils";
 
@@ -16,9 +16,9 @@ const initialState = {
     error : null, 
     loading : false, // true just actions are in "pending" state
     stepOfAuthenticate : "mobile",
+    isAuthenticated : false,
     user : {
         mobileNumber : "",
-        skils : null
     }
 }
 
@@ -26,6 +26,14 @@ const authSlice = createSlice({
     name : AuthTypes.name,
     initialState,
     extraReducers : (builder) => {
+        // ====== check User is Valid and registerd OR Not =====
+        builder.addCase(SendStoragedTokenToAuth.fulfilled,(state,action) => {
+            state.isAuthenticated = action.payload.isAuthenticated
+        })
+        builder.addCase(SendStoragedTokenToAuth.rejected,(state,action) => {
+            // state.error = getTextMessagesFormAPI(action.payload.errors)
+            state.error = null
+        })
         // ====== SendMobileNumber to get OTP-code =======
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
@@ -41,7 +49,6 @@ const authSlice = createSlice({
         })
         // ====== SendOTPcode to authenticate! =======
         builder.addCase(SendUserOTPCode.fulfilled,(state,action) => {
-            console.log("action in Reducer (fulfilled) : ",action);
             state.stepOfAuthenticate = "completed";
             localStorage.setItem("banooJanAuthToken",action.payload.data.access_token)
             state.loading = false;
@@ -52,7 +59,6 @@ const authSlice = createSlice({
         })
         builder.addCase(SendUserOTPCode.rejected,(state,action) => {
             state.loading = false;
-            console.log("action in Reducer : (rejected) : ",action);
             state.error = getTextMessagesFormAPI(action.payload.errors)
         })
     },

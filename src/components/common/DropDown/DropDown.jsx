@@ -16,7 +16,6 @@ const StaggeredDropDown = ({optionsList,skil,setSkil}) => {
   
     return (
       <div className="p-8 pb-56 flex items-center justify-center">
-        {console.log("skilValue : ",skil)}
         <motion.div animate={open ? "open" : "closed"} className="relative">
           <button
             onClick={() => setOpen((pv) => !pv)}

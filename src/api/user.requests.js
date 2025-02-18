@@ -2,10 +2,6 @@
 import axios from "axios";
 import HttpClientHandler from "@/api/api.config";
 
-let clientToken;
-if(typeof window !== 'undefined'){
-    clientToken = window.localStorage.getItem("banooJanAuthToken")
-}
 
 
 class UserHttpClient extends HttpClientHandler{
@@ -20,10 +16,12 @@ class UserHttpClient extends HttpClientHandler{
             //     Authorization : `Bearer ${clientToken}`
             // }
         })
+        this.#HttpErrorHandler(this.#api)
     }
-    AddUserSkil(skil,clinetAuthToken){
+
+    AddUserSkil(skil,clientAuthToken){
         // skils argument must be object finally Destructuring it
-        this.#HttpErrorHandler(this.#api);
+        // this.#HttpErrorHandler(this.#api);
         /**
          * response
          * @param {object} data reveived api response data
@@ -37,8 +35,9 @@ class UserHttpClient extends HttpClientHandler{
                 
             // })
             this.#api.post("/add-new-skils",{...skil},{
+                // signal : controller.signal,
                 headers : {
-                    Authorization : `Bearer ${clinetAuthToken}`
+                    Authorization : `Bearer ${clientAuthToken}`
                 }
             })
             .then((response) => {
@@ -65,7 +64,47 @@ class UserHttpClient extends HttpClientHandler{
             })
         })
     }
-
+    AddUserFeedbackComment(feedbackComment,clientAuthToken){
+        // feedbackComment argument must be an object finally Destructuring it
+        // this.#HttpErrorHandler(this.#api)
+              /**
+         * response
+         * @param {object} data reveived api response data
+         * @param {string} message
+         * @param {number} status
+         * @param {boolean} success
+        */
+       return new Promise((resolve,reject) => {
+        this.#api.post("/add-user-feedback-comment",{...feedbackComment},{
+            // signal : controller.signal,
+            headers : {
+                Authorization : `Bearer ${clientAuthToken}`
+            }
+        })
+    
+        .then((response) => {
+            /**
+             * response:
+             * @param {number} status
+             * @param {boolean} success
+             * @param {object} message
+             * @param {object} data => {modifiedUser : {skil,mobileNumber,....}}
+             */
+            console.log("user response in http method : ",response)
+            resolve(response.data.modifiedUser)
+        })
+        .catch((error) => {
+            /**
+             * error
+             * @param {string} message
+             * @param {number} status
+             * @param {boolean} success
+             * @param {object} errors
+             */
+            reject(error)
+        })
+    })
+    }
 }
 
 

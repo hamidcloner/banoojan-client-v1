@@ -13,9 +13,28 @@ class AuthHttpClient extends HttpClientHandler{
             // timeout
             // headers
         });
+        this.#HttpErrorHandler(this.#api);
+    }
+    CheckUserIsAutheticate(clientAuthToke){
+        // this.#HttpErrorHandler(this.#api);
+        return new Promise((resolve,reject) => {
+            this.#api.get("/check",{
+                headers : {
+                    Authorization : `Bearer ${clientAuthToke}`
+                }
+            })
+            .then((response) => {
+                console.log("Here is Response : ",response);
+                resolve(response.data)
+            })
+            .catch((error) => {
+                console.log("Here is Error : ",error);
+                reject(error)
+            })
+        })
     }
     SendMobileNumber(mobileNumber){
-        this.#HttpErrorHandler(this.#api)
+        // this.#HttpErrorHandler(this.#api)
         /**
          * response
          * @param {object} data reveived api response data

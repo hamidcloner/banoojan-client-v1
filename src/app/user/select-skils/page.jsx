@@ -1,4 +1,12 @@
 "use client"
+
+import { connect } from "react-redux";
+
+
+// =======================
+const abortContrller = new AbortController()
+
+
 import { Fragment,useState,useEffect } from "react";
 import {Stack} from "@mui/material"
 import { useRouter } from "next/navigation";
@@ -30,6 +38,8 @@ const userSkilsList = [
 
 
 export default function UserSelectSkilPage(){
+
+
     const [skil,setSkil] = useState("");
     const {HttpPostMethodAddHeaders} = useHttpPostMethodByHeaders(sendUserSelectedSkils);
     const {error} = useSpecificSelector("user")
@@ -64,3 +74,6 @@ export default function UserSelectSkilPage(){
         </Fragment>
     )
 }
+
+
+

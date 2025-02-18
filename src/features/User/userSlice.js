@@ -2,7 +2,7 @@ import { UserTypes } from "@/features/types";
 import { createSlice } from "@reduxjs/toolkit";
 import { getTextMessagesFormAPI } from "@/utils";
 // === import actions 
-import {sendUserSelectedSkils} from "@/features/User/actions";
+import {sendUserSelectedSkils,sendUserFeedbackComment} from "@/features/User/actions";
 
 const initialState = {
     /**
@@ -21,6 +21,7 @@ const userSlice = createSlice({
     name : UserTypes.name,
     initialState,
     extraReducers : (builder) => {
+        // == send skil
         builder.addCase(sendUserSelectedSkils.fulfilled,(state,action) => {
             state.loading = false;
             state.userInfo.skil = action.payload.skil;
@@ -32,7 +33,23 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = getTextMessagesFormAPI(action.payload.errors)
         })
+        // == send feedback comment
+        builder.addCase(sendUserFeedbackComment.fulfilled,(state,action) => {
+            state.loading = false;
+            console.log("action in sendUserFeedback reducer : ",action)
+        })
+        builder.addCase(sendUserFeedbackComment.pending,(state,action) => {
+            state.loading = true;
+        })
+        builder.addCase(sendUserFeedbackComment.rejected,(state,action) => {
+            state.loading = false;
+            state.error = getTextMessagesFormAPI(action.payload.errors)
+        })
+
+
     }
+
+    
     
 
 })

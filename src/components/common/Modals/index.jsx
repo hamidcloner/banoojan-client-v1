@@ -8,11 +8,22 @@ import { Stack } from '@mui/material';
 // import local component 
 import ButtonCTA from '../FormWidgets/ButtonCTA';
 import ButtonEvent from "@/components/common/FormWidgets/ButtonEvent";
+// import the actions
+import {sendUserFeedbackComment} from "@/features/User/actions";
+// import custom hook 
+import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
+
 
 
 
 
 export function TransitionsModal({handleOpen,open,handleClose,modalFormData,formDataHandler}) {
+  const {HttpPostMethodAddHeaders} = useHttpPostMethodByHeaders(sendUserFeedbackComment);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    HttpPostMethodAddHeaders(modalFormData);
+    handleClose();
+  }
 
 
   return (
@@ -62,7 +73,7 @@ export function TransitionsModal({handleOpen,open,handleClose,modalFormData,form
             >
                 اگر ایرادی دیدی یا نظری داشتی،خوشحال میشیم بهمون بگی
             </Typography>
-            <form className='mt-5'>
+            <form className='mt-5' onSubmit={submitHandler}>
                 <textarea 
                   rows="6" 
                   name="feedbackComment" 
@@ -85,7 +96,6 @@ export function TransitionsModal({handleOpen,open,handleClose,modalFormData,form
                     btnClickHandler={handleClose}
                   />
                 </Stack>
-           
             </form>
           </Box>
         </Fade>

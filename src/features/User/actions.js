@@ -11,8 +11,6 @@ export const sendUserSelectedSkils = createAsyncThunk(UserTypes.SEND_USER_SKILS,
      * @param {object} bodyReqContent
      */
     try{
-        console.log("actions => skils : ",skil);
-        console.log("action => token : ",token)
         const response = await userHttpClient.AddUserSkil(skil,token);
         return response;
     }catch(error){
@@ -23,6 +21,20 @@ export const sendUserSelectedSkils = createAsyncThunk(UserTypes.SEND_USER_SKILS,
          * @param {boolean} success
          * @param {object} errors => {}
          */
+        return thunkApi.rejectWithValue(error)
+    }
+})
+export const sendUserFeedbackComment = createAsyncThunk(UserTypes.SEND_USER_FEEDBACK_COMMENT,async ({bodyReqContent : feedbackComment,authToken : token},thunkApi) => {
+    // usecase : 
+    // useDispatch(sendUserMobileNumber("mentee"))
+    /**
+     * @param {object} bodyReqContent
+     */
+    try{
+        const response = await userHttpClient.AddUserFeedbackComment(feedbackComment,token);
+        console.log("what is response in ACTION : ",response)
+        return response;
+    }catch(error){
         return thunkApi.rejectWithValue(error)
     }
 })

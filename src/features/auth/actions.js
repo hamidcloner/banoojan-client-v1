@@ -3,6 +3,17 @@ import {AuthTypes} from "@/features/types";
 import authHttpClient from "@/api/auth.requests"
 
 
+export const SendStoragedTokenToAuth = createAsyncThunk(AuthTypes.SEND_AUTH_TOKEN,async (token,thunkApi) => {
+    try{
+        const response = await authHttpClient.CheckUserIsAutheticate(token);
+        console.log("response in AsyncAction : ",response);
+        return response;
+    }catch(error){
+        return thunkApi.rejectWithValue(error)
+    }
+})
+
+
 export const sendUserMobileNumber = createAsyncThunk(AuthTypes?.SEND_USER_MOBILENUMBER,async (mobileNumber,thunkApi) => {
     // usecase :
     // useDispatch(sendUserMobileNumber("09121111111"))
