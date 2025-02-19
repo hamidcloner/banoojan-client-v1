@@ -20,20 +20,21 @@ export const CallUsBadge = ({handleOpen}) => {
     )
 }
 
-export const GoToChangeSkilBadge = ({handleOpen}) => {
+export const GoToChangeSkilBadge = ({handleClick}) => {
     return (
         <>
             <Badge 
                 badgeContent="مهارتم رو میخوام نغییر بدم" 
-                // color="primary" 
-                onClick={handleOpen}
+                onClick={handleClick}
                 sx={(theme) => ({
+                    cursor : "pointer",
                     "& > span:nth-child(2)" : {
                         width : "168px",
                         height : "50px",
                         fontSize : "20px",
                         right : "-100%",
                         top : "-10px",
+                        cursor : "pointer",
                         bgcolor : theme.organizationalColors.primary.colorBlueLight
                     }
                 })}

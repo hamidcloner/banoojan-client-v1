@@ -9,15 +9,19 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   useCheckUserAuth()
-  const [isLoading,setIsLoading] = useState(true);
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const [isLoading,setIsLoading] = useState(true); // create state for show preLoading
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const error = useSelector(state => state.auth.error);
   const router = useRouter();
  
   useEffect(() => {
-    if(!isLoading && isAuthenticated){
+    if(!isLoading && !isAuthenticated && error){
+      alert("ارتباط با سرور قطع است")
+    }
+    if(!isLoading && isAuthenticated && !error){
       router.push("/user/profile")
     }
-    if(!isLoading && !isAuthenticated){
+    if(!isLoading && !isAuthenticated && !error){
       router.push("/auth/login")
     }
     const createLoadingLogic = () => {

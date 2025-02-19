@@ -6,6 +6,7 @@
 
 import { useSelector} from "react-redux";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 // import the local component
 import {CallUsBadge,GoToChangeSkilBadge} from "@/components/common/Badges";
 import {TransitionsModal} from "@/components/common/Modals";
@@ -21,21 +22,16 @@ import {getUserFieldsInfo} from "@/features/User/actions"
 
 const UserProfile = () => {
 
-    // useEffect(() => {
-    //     const {userInfo : {skil}} = useSpecificSelector("user");
-
-    // },[])
-    // const {userInfo : {skil}} = useSpecificSelector("user");
+    const router = useRouter();
     const skil = useSelector(state => state.user.userInfo.skil);
     const {HttpParamsMethodAddHeaders} = useHttpPostMethodByHeaders(getUserFieldsInfo)  
     useEffect(() => {
-        console.log("num of up useEffect calling....")
         HttpParamsMethodAddHeaders("skil")
-        // HttpParamsMethodAddHeaders()
     })
-    // const user = useSelector(state => state.user,{shallowEqual})
-    // const customEqual = (old,newV) => old == newV;
-
+    const gotToSelectSkilPageBadgehandler = () => {
+        console.log("click me!")
+        router.push("/user/select-skils")
+    }
     const {open,handleOpen,handleClose,modalFormData,formDataHandler} = useModalToggled({feedbackComment : ""});
 
     return (
@@ -55,7 +51,9 @@ const UserProfile = () => {
                     />
                 </div>
                 <div className="fixed bottom-10 left-5">
-                    <GoToChangeSkilBadge />
+                    <GoToChangeSkilBadge 
+                        handleClick={gotToSelectSkilPageBadgehandler}
+                    />
                 </div>
                 {/* == send comment modal == */}
                 <TransitionsModal 

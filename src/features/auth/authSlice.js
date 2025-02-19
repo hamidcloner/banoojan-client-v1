@@ -31,8 +31,8 @@ const authSlice = createSlice({
             state.isAuthenticated = action.payload.isAuthenticated
         })
         builder.addCase(SendStoragedTokenToAuth.rejected,(state,action) => {
-            // state.error = getTextMessagesFormAPI(action.payload.errors)
-            state.error = null
+            state.error = getTextMessagesFormAPI(action.payload.errors)
+            // state.error = null
         })
         // ====== SendMobileNumber to get OTP-code =======
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
