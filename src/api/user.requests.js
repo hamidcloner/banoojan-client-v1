@@ -105,6 +105,25 @@ class UserHttpClient extends HttpClientHandler{
         })
     })
     }
+    GetUserSpecificFields(fields,clientAuthToken){
+        console.log("fields in last interface : ",fields)
+        console.log("what is token in last interface : ",clientAuthToken)
+        /**
+         * @param {string} fields   =useCase=> "field1-field2-.."
+         */
+        return new Promise((resolve,reject) => {
+            this.#api.get(`/${fields}`,{
+                headers : {
+                    Authorization : `Bearer ${clientAuthToken}`
+                }
+            })
+            .then(response => {
+                console.log("fields response => ",response)
+                resolve(response)
+            })
+            .catch(error => reject(error))
+        })
+    }
 }
 
 

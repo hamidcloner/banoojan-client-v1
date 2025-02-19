@@ -8,5 +8,6 @@ export const AuthTypes = Object.freeze({
 export const UserTypes = Object.freeze({
     name : "user",
     SEND_USER_SKILS : "user/sendUserSkil",
-    SEND_USER_FEEDBACK_COMMENT : "user/sendUserFeedback"
+    SEND_USER_FEEDBACK_COMMENT : "user/sendUserFeedback",
+    GET_USER_SPECIFIC_FIELDS : "user/getUserSpecificFields"
 })

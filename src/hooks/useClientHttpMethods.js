@@ -8,20 +8,33 @@ export const useHttpPostMethodByHeaders = (httpActionMethod) => {
     const [authToken,setAuhtToken] = useState()
    
     useEffect(() => {
-        setAuhtToken(localStorage.getItem("banooJanAuthToken"))
-        
-    },[])
+        setAuhtToken(localStorage.getItem("banooJanAuthToken"))   
+    })
     /**
      * این آبجکت بودن به خاطر محدودیت ورودی createAsyncThunk است
      * @param {object} bodyReqContent must be object even just contain one field => چون قراره جاهای مختلفی از این هوک استفاده کنیم،و ممکن هست بادی درخواست جاهای دیگه بیشتر از یک فیلد باشد
      */
     const HttpPostMethodAddHeaders = (bodyReqContent) => {
-        console.log("auhtToken : ",authToken)
+        console.log("اینجا توکن چی هست : ",authToken)
         dispatch(httpActionMethod({bodyReqContent,authToken}))
+    }
+    const HttpParamsMethodAddHeaders = (params) => {
+        console.log("ارسال شد")
+        /**
+         * @param {string} params =useCase=> "fields1-fields2-.." separate by '-'
+         */
+        if(!authToken){
+            // console.log("authToken : ",authToken)
+            // dispatch(httpActionMethod({params,authToken}))
+        }
+        console.log("authToken : ",authToken)
+        dispatch(httpActionMethod({params,authToken}))
+      
     }
 
     return {
-        HttpPostMethodAddHeaders
+        HttpPostMethodAddHeaders,
+        HttpParamsMethodAddHeaders
     }
 
 

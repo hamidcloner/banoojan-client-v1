@@ -38,3 +38,17 @@ export const sendUserFeedbackComment = createAsyncThunk(UserTypes.SEND_USER_FEED
         return thunkApi.rejectWithValue(error)
     }
 })
+
+export const getUserFieldsInfo = createAsyncThunk(UserTypes.GET_USER_SPECIFIC_FIELDS,async ({params : fields,authToken : token},thunkApi) => {
+    /**
+     * @param {string} fields =useCase=> "field1-field2-...."
+     */
+    try{
+        console.log("TOKEN ++++++++++",token)
+        const response = await userHttpClient.GetUserSpecificFields(fields,token);
+        console.log("response in async action fields : ",response);
+        return response;
+    }catch(error){
+        return thunkApi.rejectWithValue(error)
+    }
+})

@@ -1,17 +1,21 @@
 'use client'
 
 
-import {connect} from "react-redux";
 
 
-import useSpecificSelector from "@/hooks/useSpecificSelector";
-import { useSelector,shallowEqual } from "react-redux";
+
+import { useSelector} from "react-redux";
+import { useEffect } from "react";
 // import the local component
 import {CallUsBadge} from "@/components/common/Badges";
 import {TransitionsModal} from "@/components/common/Modals";
 // import the custom hook
+import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
 import useModalToggled from "@/hooks/useModalToggled";
-import { useEffect } from "react";
+import useSpecificSelector from "@/hooks/useSpecificSelector";
+// import actions 
+import {getUserFieldsInfo} from "@/features/User/actions"
+
 
 
 
@@ -22,7 +26,13 @@ const UserProfile = () => {
 
     // },[])
     // const {userInfo : {skil}} = useSpecificSelector("user");
-    const skil = useSelector(state => state.user.userInfo.skil)
+    const skil = useSelector(state => state.user.userInfo.skil);
+    const {HttpParamsMethodAddHeaders} = useHttpPostMethodByHeaders(getUserFieldsInfo)  
+    useEffect(() => {
+        console.log("num of up useEffect calling....")
+        HttpParamsMethodAddHeaders("skil")
+        // HttpParamsMethodAddHeaders()
+    })
     // const user = useSelector(state => state.user,{shallowEqual})
     // const customEqual = (old,newV) => old == newV;
 
@@ -31,7 +41,6 @@ const UserProfile = () => {
     return (
         <>
             <div className="page-wrapper relative">
-                {console.log("skiiiiiiii : ",skil)}
                 <div className="color-text-light text-xl">
                     <h3 className="text-center mb-3">دوست خوبم!</h3>
                     <p className="text-center">امیدوارم به زودی شما رو به عنوان
