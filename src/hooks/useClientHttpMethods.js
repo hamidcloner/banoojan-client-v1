@@ -23,11 +23,6 @@ export const useHttpPostMethodByHeaders = (httpActionMethod) => {
         /**
          * @param {string} params =useCase=> "fields1-fields2-.." separate by '-'
          */
-        if(!authToken){
-            // console.log("authToken : ",authToken)
-            // dispatch(httpActionMethod({params,authToken}))
-        }
-        console.log("authToken : ",authToken)
         dispatch(httpActionMethod({params,authToken}))
       
     }

@@ -7,7 +7,7 @@
 import { useSelector} from "react-redux";
 import { useEffect } from "react";
 // import the local component
-import {CallUsBadge} from "@/components/common/Badges";
+import {CallUsBadge,GoToChangeSkilBadge} from "@/components/common/Badges";
 import {TransitionsModal} from "@/components/common/Modals";
 // import the custom hook
 import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
@@ -53,6 +53,9 @@ const UserProfile = () => {
                     <CallUsBadge 
                         handleOpen={handleOpen}
                     />
+                </div>
+                <div className="fixed bottom-10 left-5">
+                    <GoToChangeSkilBadge />
                 </div>
                 {/* == send comment modal == */}
                 <TransitionsModal 

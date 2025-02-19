@@ -8,7 +8,7 @@ const initialState = {
     /**
      * @param {object} userInfo
      * @param {boolean} loading
-     * @param {Array<string>} error 
+    *  @param {Array<string>} error 
      */
     userInfo : {
         skil : null
