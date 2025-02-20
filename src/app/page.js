@@ -15,9 +15,6 @@ export default function Home() {
   const router = useRouter();
  
   useEffect(() => {
-    if(!isLoading && !isAuthenticated && error){
-      alert("ارتباط با سرور قطع است")
-    }
     if(!isLoading && isAuthenticated && !error){
       router.push("/user/profile")
     }

@@ -1,5 +1,5 @@
-import axios from "axios";
 import {GloballyMessage} from "@/common/appUImessages"
+import Snackbar from '@mui/material/Snackbar';
 
 
 class HttpClientHandler{
@@ -60,7 +60,9 @@ class HttpClientHandler{
              */
             // Handle the network Error (Network and internet)
             if(error.message === "Network Error" || error.code === "ERR_NETWORK"){
+                
                 rejectedError = {errors : {NetWorkError : {message : GloballyMessage?.NetworkError}}}
+                alert("ارتباط با سرور قطع است")
                 return Promise.reject(rejectedError)
             }else if(error.status >= 500){
                 rejectedError = {errors : {InternalServerError : {message : GloballyMessage?.InternalServerError}}}

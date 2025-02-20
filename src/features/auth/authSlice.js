@@ -16,7 +16,7 @@ const initialState = {
     error : null, 
     loading : false, // true just actions are in "pending" state
     stepOfAuthenticate : "mobile",
-    isAuthenticated : false,
+    isAuthenticated : false, // using in protected route
     user : {
         mobileNumber : "",
     }
@@ -31,8 +31,9 @@ const authSlice = createSlice({
             state.isAuthenticated = action.payload.isAuthenticated
         })
         builder.addCase(SendStoragedTokenToAuth.rejected,(state,action) => {
-            state.error = getTextMessagesFormAPI(action.payload.errors)
-            // state.error = null
+            // state.error = getTextMessagesFormAPI(action.payload.errors)
+            state.error = null;
+            state.loading = false
         })
         // ====== SendMobileNumber to get OTP-code =======
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
@@ -50,6 +51,7 @@ const authSlice = createSlice({
         // ====== SendOTPcode to authenticate! =======
         builder.addCase(SendUserOTPCode.fulfilled,(state,action) => {
             state.stepOfAuthenticate = "completed";
+            state.isAuthenticated = true;
             localStorage.setItem("banooJanAuthToken",action.payload.data.access_token)
             state.loading = false;
             // ==== add to state.user

@@ -1,10 +1,5 @@
 "use client"
 
-import { connect } from "react-redux";
-
-
-// =======================
-const abortContrller = new AbortController()
 
 
 import { Fragment,useState,useEffect } from "react";
@@ -24,6 +19,7 @@ import {sendUserSelectedSkils} from "@/features/User/actions"
 // import the custom-hooks
 import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
 import useSpecificSelector from "@/hooks/useSpecificSelector"
+import Link from "next/link";
 
 
 
@@ -57,6 +53,7 @@ export default function UserSelectSkilPage(){
     return (
         <Fragment>
             <div className="page-wrapper">
+                <Link href={`/auth/login`}>ثبت نام</Link>
                 <Stack>
                     <div>
                     <TypingEffect
