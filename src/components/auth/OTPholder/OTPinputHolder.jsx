@@ -68,6 +68,7 @@ export default function OTPinputHolder(){
                     </Box>
                     <Box>
                         <OTPreverseTimer 
+                            isEnd={false}
                             otpExpired={otpExpired}
                             setOtpExpired={setOtpExpired}
                         />

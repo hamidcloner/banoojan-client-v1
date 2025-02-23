@@ -25,6 +25,7 @@ const userSlice = createSlice({
         builder.addCase(sendUserSelectedSkils.fulfilled,(state,action) => {
             state.loading = false;
             state.userInfo.skil = action.payload.skil;
+            state.error = null;
         })
         builder.addCase(sendUserSelectedSkils.pending,(state,action) => {
             state.loading = true;
@@ -36,6 +37,7 @@ const userSlice = createSlice({
         // ========== send feedback comment
         builder.addCase(sendUserFeedbackComment.fulfilled,(state,action) => {
             state.loading = false;
+            state.error = null
         })
         builder.addCase(sendUserFeedbackComment.pending,(state,action) => {
             state.loading = true;
@@ -47,7 +49,8 @@ const userSlice = createSlice({
         // ====== get user specific fields 
         builder.addCase(getUserFieldsInfo.fulfilled,(state,action) => {
             state.loading = false;
-            state.userInfo.skil = action.payload.data.user.skil
+            state.userInfo.skil = action.payload.data.user.skil;
+            state.error = null;
         })
         builder.addCase(getUserFieldsInfo.pending,(state,action) => {
             state.loading = true;

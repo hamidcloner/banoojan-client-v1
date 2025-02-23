@@ -24,11 +24,11 @@ class AuthHttpClient extends HttpClientHandler{
                 }
             })
             .then((response) => {
-                console.log("Here is Response : ",response);
+                // console.log("Here is Response : ",response);
                 resolve(response.data)
             })
             .catch((error) => {
-                console.log("Here is Error : ",error);
+                // console.log("Here is Error : ",error);
                 reject(error)
             })
         })
@@ -78,11 +78,11 @@ class AuthHttpClient extends HttpClientHandler{
                 mobileNumber,
                 otp
             }).then((response) => {
-                console.log("returned response from last interface (checkOTP) : ",response)
+                // console.log("returned response from last interface (checkOTP) : ",response)
                 resolve(response)
             })
             .catch((error) => {
-                console.log("error in last interface (checkOTP) : ",error)
+                // console.log("error in last interface (checkOTP) : ",error)
                 reject(error)
             })
         })

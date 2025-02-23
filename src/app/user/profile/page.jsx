@@ -96,28 +96,23 @@ import PageParentProtectedRoute from "@/common/createProtectedRoute";
 const UserProfilePageContent = () => {
 
 
-    // ============ Protected ===================
-    useCheckUserAuth()
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-    // ============================================
-
     const router = useRouter();
     const skil = useSelector(state => state.user.userInfo.skil);
     const {HttpParamsMethodAddHeaders} = useHttpPostMethodByHeaders(getUserFieldsInfo)  
     useEffect(() => {
-        if(!isAuthenticated){
-            return router.push("/auth/login")
-        }
+        // if(!isAuthenticated){
+        //     return router.push("/auth/login")
+        // }
         HttpParamsMethodAddHeaders("skil")
     })
     const gotToSelectSkilPageBadgehandler = () => {
-        console.log("click me!")
         router.push("/user/select-skils")
     }
     const {open,handleOpen,handleClose,modalFormData,formDataHandler} = useModalToggled({feedbackComment : ""});
 
     return (
         <>
+            {console.log("===== user/profile => رندر شدن children ======")}
             <div className="page-wrapper relative">
                 <div className="color-text-light text-xl">
                     <h3 className="text-center mb-3">دوست خوبم!</h3>

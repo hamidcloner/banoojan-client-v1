@@ -13,10 +13,14 @@ const initialState = {
      * @param {object} user
      * @param {enum<string>} stepOfAuthenticate "mobile" | "OTP" | "completed"
      */
-    error : null, 
+    // ======= states using in checkAuth =======
+    checkAuthError : null, // just send JWT process error
+    loadingUntilChekAuth : true, // just send JWT process loading until receive response (success OR failed)
+    isAuthenticated : false, // finally result of authenticate
+    // ===========================================
+    error : null,
     loading : false, // true just actions are in "pending" state
     stepOfAuthenticate : "mobile",
-    isAuthenticated : false, // using in protected route
     user : {
         mobileNumber : "",
     }
@@ -28,18 +32,25 @@ const authSlice = createSlice({
     extraReducers : (builder) => {
         // ====== check User is Valid and registerd OR Not =====
         builder.addCase(SendStoragedTokenToAuth.fulfilled,(state,action) => {
-            state.isAuthenticated = action.payload.isAuthenticated
+            state.isAuthenticated = action.payload.isAuthenticated,
+            state.loadingUntilChekAuth = false;
+            state.checkAuthError = null;
+        })
+        builder.addCase(SendStoragedTokenToAuth.pending,(state,action) => {
+            state.loadingUntilChekAuth = true,
+            state.error = null;
         })
         builder.addCase(SendStoragedTokenToAuth.rejected,(state,action) => {
-            // state.error = getTextMessagesFormAPI(action.payload.errors)
-            state.error = null;
-            state.loading = false
+            state.isAuthenticated = false
+            state.loadingUntilChekAuth = false;
+            state.checkAuthError = getTextMessagesFormAPI(action.payload.errors)
         })
         // ====== SendMobileNumber to get OTP-code =======
         builder.addCase(sendUserMobileNumber.fulfilled,(state,action) => {
             state.loading = false;
             state.user.mobileNumber = action.payload.mobileNumber;
-            state.stepOfAuthenticate = "OTP"
+            state.stepOfAuthenticate = "OTP";
+            state.error = null;
         })
         builder.addCase(sendUserMobileNumber.pending,(state,action) => {
             state.loading = true;
@@ -54,6 +65,7 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
             localStorage.setItem("banooJanAuthToken",action.payload.data.access_token)
             state.loading = false;
+            state.error = null;
             // ==== add to state.user
         })
         builder.addCase(SendUserOTPCode.pending,(state,action) => {

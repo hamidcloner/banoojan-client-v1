@@ -6,7 +6,9 @@ import authHttpClient from "@/api/auth.requests"
 export const SendStoragedTokenToAuth = createAsyncThunk(AuthTypes.SEND_AUTH_TOKEN,async (token,thunkApi) => {
     try{
         const response = await authHttpClient.CheckUserIsAutheticate(token);
-        console.log("response in AsyncAction : ",response);
+        
+        console.log("----> async action => response in AsyncAction : ",response);
+        console.log("----> async action => token : ",token)
         return response;
     }catch(error){
         return thunkApi.rejectWithValue(error)

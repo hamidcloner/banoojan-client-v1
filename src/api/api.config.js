@@ -10,7 +10,7 @@ class HttpClientHandler{
     }
     HttpReqResHandler(apiServiceInstace){
         /**
-         * config:
+         * 
          * @param {Array<string>} adapter
          * @param {string} baseURL
          * @param {object} data : bodyRequest
@@ -38,11 +38,11 @@ class HttpClientHandler{
          * @param {number} status axios
          * @param {string} statusText axios
          */
-            console.log("response ============ ",response)
+            // console.log("response ============ ",response)
             return response.data;
         },function(error){
             let rejectedError;
-            console.log("error in last interface : ",error)
+            // console.log("error in last interface : ",error)
             /**
              * @param {string} code axios
              * @param {object} config axios

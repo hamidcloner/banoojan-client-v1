@@ -16,7 +16,6 @@ export default function OTPlogin(){
                     py : "30px !important"
                 }}
             >
-                {console.log("OTPLOGIN یک بار")}
                 <Stack>
                     <div className="form-stack-divider-spacing">
                         <TypingEffect

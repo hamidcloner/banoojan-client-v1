@@ -32,7 +32,6 @@ export const sendUserFeedbackComment = createAsyncThunk(UserTypes.SEND_USER_FEED
      */
     try{
         const response = await userHttpClient.AddUserFeedbackComment(feedbackComment,token);
-        console.log("what is response in ACTION : ",response)
         return response;
     }catch(error){
         return thunkApi.rejectWithValue(error)
@@ -44,9 +43,7 @@ export const getUserFieldsInfo = createAsyncThunk(UserTypes.GET_USER_SPECIFIC_FI
      * @param {string} fields =useCase=> "field1-field2-...."
      */
     try{
-        console.log("TOKEN ++++++++++",token)
         const response = await userHttpClient.GetUserSpecificFields(fields,token);
-        console.log("response in async action fields : ",response);
         return response;
     }catch(error){
         return thunkApi.rejectWithValue(error)

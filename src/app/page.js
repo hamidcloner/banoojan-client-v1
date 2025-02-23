@@ -10,15 +10,22 @@ import { useSelector } from "react-redux";
 export default function Home() {
   useCheckUserAuth()
   const [isLoading,setIsLoading] = useState(true); // create state for show preLoading
+
+  // required states for check user is authenticated (go to user/profile) OR not (go to /auth/login to register)
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  const error = useSelector(state => state.auth.error);
+  const checkAuthError = useSelector(state => state.auth.checkAuthError);
+  const loadingUntilChekAuth = useSelector(state => state.auth.loadingUntilChekAuth);
+
+
   const router = useRouter();
  
   useEffect(() => {
-    if(!isLoading && isAuthenticated && !error){
+
+    if(!isLoading && !checkAuthError && !loadingUntilChekAuth && isAuthenticated){
+      // User authenticated
       router.push("/user/profile")
-    }
-    if(!isLoading && !isAuthenticated && !error){
+    }if(!isLoading && checkAuthError && !loadingUntilChekAuth && !isAuthenticated){
+      // The user could not be authenticated!
       router.push("/auth/login")
     }
     const createLoadingLogic = () => {

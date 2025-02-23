@@ -34,7 +34,7 @@ class UserHttpClient extends HttpClientHandler{
             //     skils
                 
             // })
-            this.#api.post("/add-new-skils",{...skil},{
+            this.#api.patch("/add-new-skils",{...skil},{
                 // signal : controller.signal,
                 headers : {
                     Authorization : `Bearer ${clientAuthToken}`
@@ -75,7 +75,7 @@ class UserHttpClient extends HttpClientHandler{
          * @param {boolean} success
         */
        return new Promise((resolve,reject) => {
-        this.#api.post("/add-user-feedback-comment",{...feedbackComment},{
+        this.#api.patch("/add-user-feedback-comment",{...feedbackComment},{
             // signal : controller.signal,
             headers : {
                 Authorization : `Bearer ${clientAuthToken}`
@@ -106,8 +106,6 @@ class UserHttpClient extends HttpClientHandler{
     })
     }
     GetUserSpecificFields(fields,clientAuthToken){
-        console.log("fields in last interface : ",fields)
-        console.log("what is token in last interface : ",clientAuthToken)
         /**
          * @param {string} fields   =useCase=> "field1-field2-.."
          */

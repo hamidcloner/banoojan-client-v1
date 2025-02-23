@@ -19,8 +19,7 @@ import {sendUserSelectedSkils} from "@/features/User/actions"
 // import the custom-hooks
 import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
 import useSpecificSelector from "@/hooks/useSpecificSelector"
-import Link from "next/link";
-
+import PageParentProtectedRoute from "@/common/createProtectedRoute";
 
 
 // ============ initial list ===============
@@ -33,7 +32,48 @@ const userSkilsList = [
 ]
 
 
-export default function UserSelectSkilPage(){
+// export default function UserSelectSkilPage(){
+
+
+//     const [skil,setSkil] = useState("");
+//     const {HttpPostMethodAddHeaders} = useHttpPostMethodByHeaders(sendUserSelectedSkils);
+//     const {error} = useSpecificSelector("user")
+//     const router = useRouter();
+//     useEffect(() => {
+//         if(skil){
+//             console.log("مگه اسکیل : ",skil)
+//             HttpPostMethodAddHeaders({skil})
+//             console.log("error !!!! : ",error)
+//             if(!error){
+//                 console.log("برو تو این صفحه دیگه!")
+//                 router.push("/user/profile")
+//             }    
+//         }
+//     },[skil])
+    
+
+//     return (
+//         <Fragment>
+//             <div className="page-wrapper">
+//                 <Stack>
+//                     <div>
+//                     <TypingEffect
+//                         text="چکاری میتونی برای بانوجان انجام بدی؟"
+//                         textColorCls="color-text-light"
+//                     />
+//                     </div>
+//                     <StaggeredDropDown 
+//                         optionsList={userSkilsList}
+//                         skil={skil}
+//                         setSkil={setSkil}
+//                     />
+//                 </Stack>    
+//             </div>
+//         </Fragment>
+//     )
+// }
+
+export function UserSelectSkilPageContent(){
 
 
     const [skil,setSkil] = useState("");
@@ -42,8 +82,11 @@ export default function UserSelectSkilPage(){
     const router = useRouter();
     useEffect(() => {
         if(skil){
+            console.log("مگه اسکیل : ",skil)
             HttpPostMethodAddHeaders({skil})
+            console.log("error !!!! : ",error)
             if(!error){
+                console.log("برو تو این صفحه دیگه!")
                 router.push("/user/profile")
             }    
         }
@@ -53,7 +96,6 @@ export default function UserSelectSkilPage(){
     return (
         <Fragment>
             <div className="page-wrapper">
-                <Link href={`/auth/login`}>ثبت نام</Link>
                 <Stack>
                     <div>
                     <TypingEffect
@@ -73,4 +115,12 @@ export default function UserSelectSkilPage(){
 }
 
 
+
+export default function UserSelectSkilPage(){
+    return (
+        <PageParentProtectedRoute>
+            <UserSelectSkilPageContent />
+        </PageParentProtectedRoute>
+    )
+}
 

@@ -18,8 +18,7 @@ export function HashLoading({cssOverride,color,load}){
                 loading={load}
                 width={60}
                 cssOverride={cssOverride}
-            />
-            
+            />            
         </>
     )
 }
