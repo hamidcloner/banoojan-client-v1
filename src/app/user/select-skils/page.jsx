@@ -20,6 +20,7 @@ import {sendUserSelectedSkils} from "@/features/User/actions"
 import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
 import useSpecificSelector from "@/hooks/useSpecificSelector"
 import PageParentProtectedRoute from "@/common/createProtectedRoute";
+import { useSelector } from "react-redux";
 
 
 // ============ initial list ===============
@@ -78,17 +79,15 @@ export function UserSelectSkilPageContent(){
 
     const [skil,setSkil] = useState("");
     const {HttpPostMethodAddHeaders} = useHttpPostMethodByHeaders(sendUserSelectedSkils);
-    const {error} = useSpecificSelector("user")
+    const error = useSelector(state => state.user.error)
     const router = useRouter();
     useEffect(() => {
         if(skil){
-            console.log("مگه اسکیل : ",skil)
             HttpPostMethodAddHeaders({skil})
-            console.log("error !!!! : ",error)
-            if(!error){
-                console.log("برو تو این صفحه دیگه!")
-                router.push("/user/profile")
-            }    
+            router.push("/user/profile")
+            // if(!error){
+            //     router.push("/user/profile")
+            // }    
         }
     },[skil])
     

@@ -48,8 +48,9 @@ const userSlice = createSlice({
         })
         // ====== get user specific fields 
         builder.addCase(getUserFieldsInfo.fulfilled,(state,action) => {
-            state.loading = false;
+            console.log("=========================> action : ",action)
             state.userInfo.skil = action.payload.data.user.skil;
+            state.loading = false;
             state.error = null;
         })
         builder.addCase(getUserFieldsInfo.pending,(state,action) => {

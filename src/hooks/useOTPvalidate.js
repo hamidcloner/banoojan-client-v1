@@ -71,7 +71,6 @@ export default function useOTPvalidate(){
                 ) : (
                     serverError.map((errorMsg) => (
                         <p key={serverError.indexOf(errorMsg)} className="color-pink-stroke-500 text-xl md:text-2xl text-center">
-                            {console.log("I am Rendered ......")}
                             {errorMsg}
                         </p>
                     ))

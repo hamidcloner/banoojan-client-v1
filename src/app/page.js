@@ -7,6 +7,11 @@ import { useSelector } from "react-redux";
 
 
 
+
+import OTPreverseTimer from "@/components/auth/OTPholder/OTPreverseTimer";
+
+
+
 export default function Home() {
   useCheckUserAuth()
   const [isLoading,setIsLoading] = useState(true); // create state for show preLoading

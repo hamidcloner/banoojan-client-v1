@@ -4,7 +4,7 @@ import styles from "@/components/auth/OTPholder/otpStyles.module.css";
 import OTPreverseTimer from "@/components/auth/OTPholder/OTPreverseTimer";
 // import ButtonCTA from "@/components/common/FormWidgets/ButtonCTA";
 import ButtonCTA from "@/components/common/FormWidgets/ButtonCTA"
-import { useState,Fragment } from "react";
+import { useState,Fragment, useCallback, useEffect } from "react";
 import { Box, Stack,Button } from "@mui/material";
 // import the custom-hooks
 import useOTPvalidate from "@/hooks/useOTPvalidate";
@@ -12,6 +12,20 @@ import useOTPvalidate from "@/hooks/useOTPvalidate";
 
 
 export default function OTPinputHolder(){
+
+
+
+
+
+
+    useEffect(() => {
+        console.log("یدونه بالاتر mount شد،OTPinputHolder")
+        return () => {
+            console.log("یدونه بالاتر UNMOUNT شد،OTPinputHolder")
+        }
+    },[])
+
+
 
     const {otp,setOTP,otpExpired,setOtpExpired,onSubmitHandler,inputedOTPHandler,error,isDisable,otpStatus,showServerErrorAsText} = useOTPvalidate();
     // otpStatus =ENUM=>  {"send" : defaultStatus,"re-send" : otpExpired is "True"}
@@ -68,10 +82,9 @@ export default function OTPinputHolder(){
                     </Box>
                     <Box>
                         <OTPreverseTimer 
-                            isEnd={false}
                             otpExpired={otpExpired}
                             setOtpExpired={setOtpExpired}
-                        />
+                        />                        
                     </Box>
                     <Box>
                         {showServerErrorAsText()}
