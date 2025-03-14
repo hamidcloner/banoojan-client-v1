@@ -30,6 +30,13 @@
 body{
   font-family: Aviny;
   background-color: var(--colo-background-dark);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-rendering: optimizeLegibility;
+
 }
 
 
@@ -95,6 +102,37 @@ body{
   border: 1px solid var(--color-background-light);
   color: var(--color-background-light);
 }
+
+
+
+
+.animated-text {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-text {
+    animation: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,7 +3,7 @@ import { Paper,Stack } from "@mui/material";
 import {AuthMessages} from "@/common/appUImessages";
 
 // import the local components
-import {TypingEffect} from "@/components/common/LoadingText";
+import {TypingEffectByPure} from "@/components/common/LoadingText";
 import MobileNumberHolder from "@/components/auth/MobileHolder/MobileNumberHolder";
 
 
@@ -26,16 +26,14 @@ export default function MobileLogin(){
             >
                 <Stack>
                     <div className="form-stack-divider-spacing mx-5">
-                        <TypingEffect 
-                            text={AuthMessages.Moblie_Input_Component_Text}
-                            textColorCls="color-bg-light"
-                            durationTime={0}
-                            className="mb-10"
+                        <TypingEffectByPure 
+                            text="برای اضافه شدن به تیم ما،شمارت رو وارد کن" 
                         />
                     </div>
+                    <p className="color-pink-stroke-500 text-center text-xl md:text-2xl">صفحه رو رفرش نکنید!</p>
                     <div className="form-stack-divider-spacing">
                         <MobileNumberHolder />
-                    </div>  
+                    </div>     
                 </Stack>
             </Paper>
         </Fragment>

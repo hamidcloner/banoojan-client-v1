@@ -5,13 +5,16 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
   
-const StaggeredDropDown = ({optionsList,skil,setSkil}) => {
+const StaggeredDropDown = ({optionsList,skil,setSkil,setSkilTitleToShow}) => {
     const [open, setOpen] = useState(false);
     // const [skil,setSkil] = useState("");
 
-    const optionSelectedHandler = (e,skilValue) => {
+    const optionSelectedHandler = (e,skilValue,skilTitle) => {
+      // skilValue => to send API (english)
+      // skilTitle => to show UI-fallback
       setOpen(false);
-      setSkil(skilValue)
+      setSkil(skilValue);
+      setSkilTitleToShow(skilTitle)
     }
   
     return (
@@ -46,7 +49,7 @@ const StaggeredDropDown = ({optionsList,skil,setSkil}) => {
     return (
       <motion.li
         variants={itemVariants}
-        onClick={(e) => handler(e,value)}
+        onClick={(e) => handler(e,value,title)}
         className="flex items-center gap-2 w-full p-2 text-xl font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-slate-700 hover:text-indigo-500 transition-colors cursor-pointer"
       >
         <motion.span variants={actionIconVariants}>

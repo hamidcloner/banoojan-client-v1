@@ -1,14 +1,11 @@
 "use client"
 import { useSelector } from "react-redux";
-import { Fragment,useEffect,useLayoutEffect, useState } from "react";
+import { Fragment,useEffect } from "react";
 import { useRouter } from "next/navigation";
-import PageParentLoginPageProtected from "@/common/createLoginProtectedRoute"; // import the /user route protected
-// import the custom-hooks
+// import PageParentLoginPageProtected from "@/common/createLoginProtectedRoute"; // import the /user route protected
+import PageParentLoginPage from "@/common/createProtectedLogin"
 // import the local-components
 import MobileLogin from "@/components/auth/MobileLogin";
-import OTPreverseTimer from "@/components/auth/OTPholder/OTPreverseTimer";
-
-import OTPlogin from "@/components/auth/OTPlogin";
 import {HashLoading} from "@/components/loadings"
 
 
@@ -21,19 +18,21 @@ function LoginPageContent(){
     const router = useRouter()
 
     const stepOfAuthenticate = useSelector(state => state.auth.stepOfAuthenticate)
-    const loading = useSelector(state => state.auth.loading)
+    const loading = useSelector(state => state.auth.loading);
     /**
      * @param {Enumerator} stepOfAuthenticate => ["mobile","OTP","completed"]
      */
     useEffect(() => {
-        if(stepOfAuthenticate === "OTP" && !loading){
+        if((stepOfAuthenticate === "OTP" && !loading)){
             router.push("/auth/register")
         }
     },[stepOfAuthenticate,loading])
     const LoginRenderedBasedOnAuthStep = () => {
         if(loading){
             return (
-                <HashLoading color="#3D2B8E" load={loading}/>
+                <div className="page-wrapper">
+                    <HashLoading color="#3D2B8E" load={loading}/>
+                </div>
             )
         }
         if(stepOfAuthenticate === "mobile" && !loading){
@@ -56,8 +55,8 @@ function LoginPageContent(){
 
 export default function LoginPage(){
     return (
-        <PageParentLoginPageProtected>
+        <PageParentLoginPage>
             <LoginPageContent />
-        </PageParentLoginPageProtected>
+        </PageParentLoginPage>
     )
 }

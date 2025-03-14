@@ -1,11 +1,11 @@
 "use client"
 
-
-
 import { Fragment,useState,useEffect } from "react";
+import PageParentProtectedRoute from "@/common/createProtectedRoute";
 import {Stack} from "@mui/material"
 import { useRouter } from "next/navigation";
-import { TypingEffect } from "@/components/common/LoadingText";
+import { TypingEffectByPure } from "@/components/common/LoadingText";
+import { useDispatch } from "react-redux";
 // import the local-components
 import StaggeredDropDown from "@/components/common/DropDown";
 // import icons
@@ -16,11 +16,9 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 // import the actions
 import {sendUserSelectedSkils} from "@/features/User/actions"
+import {setUserSelectedSkilTitle} from "@/features/User/userSlice";
 // import the custom-hooks
 import {useHttpPostMethodByHeaders} from "@/hooks/useClientHttpMethods";
-import useSpecificSelector from "@/hooks/useSpecificSelector"
-import PageParentProtectedRoute from "@/common/createProtectedRoute";
-import { useSelector } from "react-redux";
 
 
 // ============ initial list ===============
@@ -33,79 +31,34 @@ const userSkilsList = [
 ]
 
 
-// export default function UserSelectSkilPage(){
-
-
-//     const [skil,setSkil] = useState("");
-//     const {HttpPostMethodAddHeaders} = useHttpPostMethodByHeaders(sendUserSelectedSkils);
-//     const {error} = useSpecificSelector("user")
-//     const router = useRouter();
-//     useEffect(() => {
-//         if(skil){
-//             console.log("مگه اسکیل : ",skil)
-//             HttpPostMethodAddHeaders({skil})
-//             console.log("error !!!! : ",error)
-//             if(!error){
-//                 console.log("برو تو این صفحه دیگه!")
-//                 router.push("/user/profile")
-//             }    
-//         }
-//     },[skil])
-    
-
-//     return (
-//         <Fragment>
-//             <div className="page-wrapper">
-//                 <Stack>
-//                     <div>
-//                     <TypingEffect
-//                         text="چکاری میتونی برای بانوجان انجام بدی؟"
-//                         textColorCls="color-text-light"
-//                     />
-//                     </div>
-//                     <StaggeredDropDown 
-//                         optionsList={userSkilsList}
-//                         skil={skil}
-//                         setSkil={setSkil}
-//                     />
-//                 </Stack>    
-//             </div>
-//         </Fragment>
-//     )
-// }
-
 export function UserSelectSkilPageContent(){
 
-
+    const dispatch = useDispatch()
     const [skil,setSkil] = useState("");
+    const [skilTitleToShow,setSkilTitleToShow] = useState("")
     const {HttpPostMethodAddHeaders} = useHttpPostMethodByHeaders(sendUserSelectedSkils);
-    const error = useSelector(state => state.user.error)
     const router = useRouter();
     useEffect(() => {
         if(skil){
+            dispatch(setUserSelectedSkilTitle({skilTitleToShow}))
             HttpPostMethodAddHeaders({skil})
-            router.push("/user/profile")
-            // if(!error){
-            //     router.push("/user/profile")
-            // }    
+            router.push("/user/profile")   
         }
     },[skil])
-    
-
     return (
         <Fragment>
             <div className="page-wrapper">
                 <Stack>
-                    <div>
-                    <TypingEffect
-                        text="چکاری میتونی برای بانوجان انجام بدی؟"
-                        textColorCls="color-text-light"
-                    />
+                    <div className="form-stack-divider-spacing mx-5">
+                        <TypingEffectByPure 
+                            text="چکاری میتونی برای بانوجان انجام بدی؟"
+                        />
                     </div>
                     <StaggeredDropDown 
                         optionsList={userSkilsList}
                         skil={skil}
                         setSkil={setSkil}
+                        setSkilTitleToShow={setSkilTitleToShow}
                     />
                 </Stack>    
             </div>

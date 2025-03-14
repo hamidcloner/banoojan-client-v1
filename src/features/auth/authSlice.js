@@ -17,6 +17,7 @@ const initialState = {
     checkAuthError : null, // just send JWT process error
     loadingUntilChekAuth : true, // just send JWT process loading until receive response (success OR failed)
     isAuthenticated : false, // finally result of authenticate
+    verifiedMobile : false, // check step of login => until not send mobileNumber,verifiedMobile is "false" => using in auth/register protectedRoute
     // ===========================================
     error : null,
     loading : false, // true just actions are in "pending" state
@@ -29,10 +30,16 @@ const initialState = {
 const authSlice = createSlice({
     name : AuthTypes.name,
     initialState,
+    reducers : {
+        resetServerErrorToNull : (state,action) => {
+            state.error = null
+        }
+    },
     extraReducers : (builder) => {
         // ====== check User is Valid and registerd OR Not =====
         builder.addCase(SendStoragedTokenToAuth.fulfilled,(state,action) => {
             state.isAuthenticated = action.payload.isAuthenticated,
+            state.verifiedMobile = action.payload.accepteduser.verifiedMobile // using in auth/register ProtectedRoute (OTPinput page => second step of login)
             state.loadingUntilChekAuth = false;
             state.checkAuthError = null;
         })
@@ -43,6 +50,7 @@ const authSlice = createSlice({
         builder.addCase(SendStoragedTokenToAuth.rejected,(state,action) => {
             state.isAuthenticated = false
             state.loadingUntilChekAuth = false;
+            state.verifiedMobile = false;
             state.checkAuthError = getTextMessagesFormAPI(action.payload.errors)
         })
         // ====== SendMobileNumber to get OTP-code =======
@@ -76,9 +84,10 @@ const authSlice = createSlice({
             state.error = getTextMessagesFormAPI(action.payload.errors)
         })
     },
+
 })
 
 
-export const {setTestUserTest,setTestOTPcode} = authSlice.actions;
+export const {resetServerErrorToNull} = authSlice.actions;
 const authReducers = authSlice.reducer
 export default authReducers;

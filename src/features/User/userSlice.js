@@ -1,6 +1,6 @@
 import { UserTypes } from "@/features/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { getTextMessagesFormAPI } from "@/utils";
+import { getTextMessagesFormAPI,transferSkilLangToFa } from "@/utils";
 // === import actions 
 import {sendUserSelectedSkils,sendUserFeedbackComment,getUserFieldsInfo} from "@/features/User/actions";
 
@@ -20,6 +20,11 @@ const initialState = {
 const userSlice = createSlice({
     name : UserTypes.name,
     initialState,
+    reducers : {
+        setUserSelectedSkilTitle : (state,action) => {
+            state.userInfo.skil = action.payload.skilTitleToShow
+        }
+    },
     extraReducers : (builder) => {
         // =========== send skil
         builder.addCase(sendUserSelectedSkils.fulfilled,(state,action) => {
@@ -48,8 +53,7 @@ const userSlice = createSlice({
         })
         // ====== get user specific fields 
         builder.addCase(getUserFieldsInfo.fulfilled,(state,action) => {
-            console.log("=========================> action : ",action)
-            state.userInfo.skil = action.payload.data.user.skil;
+            state.userInfo.skil = transferSkilLangToFa(action.payload.data.user.skil)
             state.loading = false;
             state.error = null;
         })
@@ -60,8 +64,6 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = getTextMessagesFormAPI(action.payload.errors)
         })
-
-
     }
 
     
@@ -74,5 +76,5 @@ const userSlice = createSlice({
 
 
 
-
+export const {setUserSelectedSkilTitle} = userSlice.actions;
 export default userSlice.reducer

@@ -5,14 +5,12 @@ import TextInput from "@/components/common/FormWidgets/TextInput";
 import ButtonCTA from "@/components/common/FormWidgets/ButtonCTA";
 // import the custom-hooks
 import useMobileNumberValidation from "@/hooks/useMobileValidation";
-import useSpecificSelector from "@/hooks/useSpecificSelector";
 
 
 
 
 
 export default function MobileNumberHolder(){
-    const authState = useSpecificSelector("auth");
     const {mobileNumberInputHandler,isDisable,onSubmitHandler,showServerErrorAsText} = useMobileNumberValidation()
     return (
         <Fragment>

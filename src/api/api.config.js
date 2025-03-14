@@ -1,5 +1,4 @@
 import {GloballyMessage} from "@/common/appUImessages"
-import Snackbar from '@mui/material/Snackbar';
 
 
 class HttpClientHandler{
@@ -38,11 +37,9 @@ class HttpClientHandler{
          * @param {number} status axios
          * @param {string} statusText axios
          */
-            // console.log("response ============ ",response)
             return response.data;
         },function(error){
             let rejectedError;
-            // console.log("error in last interface : ",error)
             /**
              * @param {string} code axios
              * @param {object} config axios

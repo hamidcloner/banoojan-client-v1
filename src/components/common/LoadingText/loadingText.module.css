@@ -1,0 +1,28 @@
+.typewriter {
+    width: 100%;
+  }
+  
+  .typewriter h1 {
+    font-size: 20px;
+    color: #FFFFFF;
+    text-align: center;
+    overflow: hidden; 
+    border-left: .15em solid #ec4899; /* The typwriter cursor */
+    white-space: nowrap;
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    animation: 
+      typing 5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #ec4899; }
+  }

@@ -1,11 +1,10 @@
 "use client"
 import OtpInput from "react18-input-otp";
-import styles from "@/components/auth/OTPholder/otpStyles.module.css";
 import OTPreverseTimer from "@/components/auth/OTPholder/OTPreverseTimer";
-// import ButtonCTA from "@/components/common/FormWidgets/ButtonCTA";
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 import ButtonCTA from "@/components/common/FormWidgets/ButtonCTA"
-import { useState,Fragment, useCallback, useEffect } from "react";
-import { Box, Stack,Button } from "@mui/material";
+import {Fragment} from "react";
+import { Box, Stack } from "@mui/material";
 // import the custom-hooks
 import useOTPvalidate from "@/hooks/useOTPvalidate";
 
@@ -13,21 +12,7 @@ import useOTPvalidate from "@/hooks/useOTPvalidate";
 
 export default function OTPinputHolder(){
 
-
-
-
-
-
-    useEffect(() => {
-        console.log("یدونه بالاتر mount شد،OTPinputHolder")
-        return () => {
-            console.log("یدونه بالاتر UNMOUNT شد،OTPinputHolder")
-        }
-    },[])
-
-
-
-    const {otp,setOTP,otpExpired,setOtpExpired,onSubmitHandler,inputedOTPHandler,error,isDisable,otpStatus,showServerErrorAsText} = useOTPvalidate();
+    const {otp,setOTP,otpExpired,setOtpExpired,onSubmitHandler,setError,inputedOTPHandler,isDisable,otpStatus,showServerErrorAsText,setOtpStatus} = useOTPvalidate();
     // otpStatus =ENUM=>  {"send" : defaultStatus,"re-send" : otpExpired is "True"}
 
     const submitButtonGenerate = function(){
@@ -81,10 +66,24 @@ export default function OTPinputHolder(){
                         />
                     </Box>
                     <Box>
-                        <OTPreverseTimer 
-                            otpExpired={otpExpired}
-                            setOtpExpired={setOtpExpired}
-                        />                        
+                        {!otpExpired ? (
+                            <OTPreverseTimer 
+                                otpExpired={otpExpired}
+                                setOtpExpired={setOtpExpired}
+                                setOtpStatus={setOtpStatus}
+                                setError={setError}
+                                setOTP={setOTP}
+                            
+                        />) : (
+                                <>
+                                    <div className="mt-10 mb-5">
+                                        <div className="text-center my-0 mx-auto flex justify-center">
+                                            <SentimentDissatisfiedIcon className="dark:stroke-pink-500 text-[50px]"/>
+                                        </div>
+                                        <p className="text-center font-aviny color-pink-light mt-5 mb-5">وقت تموم شد یخورده عجله کن!اگر کد نیومد اون پایین برام پیام بده</p>
+                                    </div>
+                                </>
+                            )}                      
                     </Box>
                     <Box>
                         {showServerErrorAsText()}

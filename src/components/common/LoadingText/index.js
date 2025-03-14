@@ -1,6 +1,7 @@
 'use client'; 
 import * as React from 'react';
 import { motion, useInView } from 'framer-motion';
+import styles from "./loadingText.module.css";
 
 
 
@@ -99,6 +100,17 @@ export function TextFadeWithHeader({headerText,contentText,headerTextColorCls,co
     </>
   )
 }
+
+export function TypingEffectByPure({text}){
+  return (
+      <div className={styles.typewriter}>
+        <h1>{text}</h1>
+      </div>
+  )
+}
+
+
+
 
 
 

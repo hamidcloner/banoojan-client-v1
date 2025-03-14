@@ -1,6 +1,6 @@
 'use client'
 import OTPlogin from "@/components/auth/OTPlogin";
-import PageParentLoginPageProtected from "@/common/createLoginProtectedRoute";
+import PageParentRegisterPageProtected from "@/common/createRegisterProtectedRoute";
 
 
 
@@ -19,8 +19,8 @@ function OTPpageContent(){
 
 export default function OTPpage(){
     return (
-        <PageParentLoginPageProtected>
+        <PageParentRegisterPageProtected>
             <OTPpageContent />
-        </PageParentLoginPageProtected>
+        </PageParentRegisterPageProtected>
     )
 }

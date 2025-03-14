@@ -6,24 +6,25 @@
 */
 import { useState,useEffect } from "react";
 import {AuthMessages} from "@/common/appUImessages";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import useSpecificSelector from "./useSpecificSelector";
+import { useDispatch, useSelector } from "react-redux";
 // ==== import actions ========
-import { SendUserOTPCode } from "@/features/auth/actions";
+import { SendUserOTPCode,sendUserMobileNumber } from "@/features/auth/actions"; // async actions
+import {resetServerErrorToNull} from "@/features/auth/authSlice";
 
 
 export default function useOTPvalidate(){
-    // =============
+    
     const dispatch = useDispatch();
-    const router = useRouter()
-    const {stepOfAuthenticate,error : serverError,user : {mobileNumber}} = useSpecificSelector("auth")
-    // selector = {otp : "",mobileNumber : ""}
-    // =============
+
+    // === states from store ====
+    const serverError = useSelector(state => state.auth.error);
+    const mobileNumber = useSelector(state => state.auth.user.mobileNumber);
+
+    // == define some states for validation ==
     const [otpStatus,setOtpStatus] = useState("send") // => =ENUM=> ["send","re-send"] => {send : defaultStatus,re-send : otpExpired is "True"}
     const [otpExpired,setOtpExpired] = useState(false);
     const [otp,setOTP] = useState("");
-    const [error,setError] = useState({});
+    const [error,setError] = useState({}); // client-side error =otp=> must be Number && must has 4-digit
     const [isDisable,setIsDisable] = useState(true);
 
     const otpCorrectPattern = /^\d{4}$/;
@@ -39,24 +40,24 @@ export default function useOTPvalidate(){
         })
         return resultObj;
     }
-    // =======
 
     useEffect(() => {
         if(otpExpired){
-            setError((prevState) => ({
-                ...prevState,
-                otp_expired : AuthMessages?.OTP_Expired
-            }));
             setOtpStatus("re-send")
+            setOTP("")
+            dispatch(resetServerErrorToNull())
         }
-        if(!otpCorrectPattern.test(otp)) setError((prevState) => ({
-            ...prevState,
-            otp_invalid : AuthMessages?.OTP_Invalid
-        }))
-        if(otpCorrectPattern.test(otp)) setError((prevState) => removeSpecialKey(prevState,"otp_invalid"));
-
-        // when submit button is enable => just:
-        if(otpCorrectPattern.test(otp) && !otpExpired) setIsDisable(false)
+        if(!otpCorrectPattern.test(otp)){
+            setError({otp_invalid : AuthMessages?.OTP_Invalid})
+            setIsDisable(true)
+        }
+        if(otpCorrectPattern.test(otp)){
+            setError({})
+            setIsDisable(false)
+        };
+        if(otpCorrectPattern.test(otp) && !otpExpired && Object.keys(error).length === 0){
+            setIsDisable(false)
+        }
 
     },[otp,otpExpired,isDisable])
 
@@ -66,9 +67,7 @@ export default function useOTPvalidate(){
     function showServerErrorAsText(){
         return (
             <>
-                {!serverError ? (
-                    <></>
-                ) : (
+                {serverError && (
                     serverError.map((errorMsg) => (
                         <p key={serverError.indexOf(errorMsg)} className="color-pink-stroke-500 text-xl md:text-2xl text-center">
                             {errorMsg}
@@ -79,12 +78,15 @@ export default function useOTPvalidate(){
         )
     }
 
-
+    // =========== Submit Handler =====================
     const onSubmitHandler = (e) => {
-        console.log("e shod ke!")
         e.preventDefault();
-        if(Object.keys(error).length === 0 && !isDisable){
+        if(Object.keys(error).length === 0 && !isDisable && otpStatus === "send"){
             dispatch(SendUserOTPCode({mobileNumber,otp}))
+        }else if(otpStatus === "re-send"){
+            dispatch(sendUserMobileNumber(mobileNumber))
+            setOtpStatus("send")
+            setOtpExpired(false)
         }
     } 
 
@@ -98,7 +100,9 @@ export default function useOTPvalidate(){
         onSubmitHandler,
         inputedOTPHandler,
         otpStatus,
+        setOtpStatus,
         showServerErrorAsText,
+        setError,
         // each one of follow => show that form can be submit!
         error,
         isDisable

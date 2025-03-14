@@ -18,3 +18,12 @@ export const getTextMessagesFormAPI = (errObj) => {
     })
     return errorArr;
 }
+
+
+
+export const transferSkilLangToFa = (receivedSkil) => {
+    const validSkilValues = ["developer","motion_graphics_designer","mentee","accountant","huamn_resource_manager"];
+    const transferToFaArray = [["developer","برنامه نویس"],["motion_graphics_designer","موشن گرافیست"],["mentee","کارآموز"],["accountant","حسابدار"],["huamn_resource_manager","مدیر منابع انسانی (HR)"]]
+    const faSkil = transferToFaArray.find((skil) => skil[0] === receivedSkil)
+    return faSkil[1]
+}

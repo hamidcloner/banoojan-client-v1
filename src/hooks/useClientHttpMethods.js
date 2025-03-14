@@ -6,10 +6,21 @@ import { useDispatch } from "react-redux";
 export const useHttpPostMethodByHeaders = (httpActionMethod) => {
     const dispatch = useDispatch();
     const [authToken,setAuhtToken] = useState()
+
+    const [loadUntilMountStorage,setLoadUntilMountStorage] = useState(true)
    
+
     useEffect(() => {
-        setAuhtToken(localStorage.getItem("banooJanAuthToken"))   
-    })
+        const authToken = localStorage.getItem("banooJanAuthToken");
+        if(authToken){
+            setAuhtToken(authToken)
+            setLoadUntilMountStorage(false)
+        }
+    },[loadUntilMountStorage])
+
+
+
+
     /**
      * این آبجکت بودن به خاطر محدودیت ورودی createAsyncThunk است
      * @param {object} bodyReqContent must be object even just contain one field => چون قراره جاهای مختلفی از این هوک استفاده کنیم،و ممکن هست بادی درخواست جاهای دیگه بیشتر از یک فیلد باشد
@@ -27,7 +38,8 @@ export const useHttpPostMethodByHeaders = (httpActionMethod) => {
 
     return {
         HttpPostMethodAddHeaders,
-        HttpParamsMethodAddHeaders
+        HttpParamsMethodAddHeaders,
+        authToken
     }
 
 

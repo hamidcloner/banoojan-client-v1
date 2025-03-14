@@ -16,7 +16,7 @@ class UserHttpClient extends HttpClientHandler{
             //     Authorization : `Bearer ${clientToken}`
             // }
         })
-        this.#HttpErrorHandler(this.#api)
+        this.#HttpErrorHandler(this.#api);
     }
 
     AddUserSkil(skil,clientAuthToken){
@@ -48,7 +48,6 @@ class UserHttpClient extends HttpClientHandler{
                  * @param {object} message
                  * @param {object} data => {modifiedUser : {skil,mobileNumber,....}}
                  */
-                console.log("user response in http method : ",response)
                 resolve(response.data.modifiedUser)
             })
             .catch((error) => {
@@ -90,7 +89,6 @@ class UserHttpClient extends HttpClientHandler{
              * @param {object} message
              * @param {object} data => {modifiedUser : {skil,mobileNumber,....}}
              */
-            console.log("user response in http method : ",response)
             resolve(response.data.modifiedUser)
         })
         .catch((error) => {
@@ -116,7 +114,6 @@ class UserHttpClient extends HttpClientHandler{
                 }
             })
             .then(response => {
-                console.log("fields response => ",response)
                 resolve(response)
             })
             .catch(error => reject(error))
